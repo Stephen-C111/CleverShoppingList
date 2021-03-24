@@ -26,8 +26,8 @@ namespace CleverShoppingList.Models
         public int ID { get => id; set { SetProperty(ref id, value); } }
         public int OwnerID { get => ownerID; set { SetProperty(ref ownerID, value); } }
         public int ForeignID { get => foreignID; set { SetProperty(ref foreignID, value); } }
-        public decimal Price { get => foreignItem.Price; }
-        public string Name { get => foreignItem.Name; }
+        public decimal Price { get => foreignItem != null ? foreignItem.Price : 0m; }
+        public string Name { get => foreignItem != null ? foreignItem.Name : "NULL"; }
         public Priority Priority { get => priority; set { SetProperty(ref priority, value); } }
         public bool Check { get => check; set { SetProperty(ref check, value); } }
         public int Amount { get => amount; set { SetProperty(ref amount, value); } }

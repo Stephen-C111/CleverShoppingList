@@ -27,14 +27,12 @@ namespace CleverShoppingList.ViewModels
 
         public async Task UpdateList()
         {
-            var list = from i in TabsViewModel.tvm.Conn.Table<ListItem>()
-                       where i.ID > 0
-                       select i;
-            ListItems = await list.ToListAsync();
-            foreach (ListItem li in ListItems)
+            var list = await TabsViewModel.tvm.Conn.Table<ListItem>().ToListAsync();
+            foreach (ListItem li in list)
             {
                 await li.LinkToForeignItem();
             }
+            ListItems = list;
         }
     }
 }
