@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+			 xmlns:data="clr-namespace:CleverShoppingList.ViewModels;assembly=CleverShoppingList"
+             x:Class="CleverShoppingList.MainPage">
+
+	<ContentPage.Resources>
+		<data:ListViewModel x:Key="lvm"/>
+	</ContentPage.Resources>
+	
+	<StackLayout>
+		
+		<ListView x:Name="listItemView" ItemTapped="listItemView_ItemTapped" BindingContext="{StaticResource lvm}" ItemsSource="{Binding ListItems}" HasUnevenRows="True">
+			<ListView.ItemTemplate>
+				<DataTemplate>
+					<ViewCell>
+						<ContentView>
+							<Frame BorderColor="#FF3838" Padding="5">
+								<StackLayout Orientation="Horizontal">
+									<Label Text="{Binding Name}"/>
+									<Label>
+										<Label.FormattedText>
+											<FormattedString>
+												<Span Text="Priority: "/>
+												<Span Text="{Binding Priority}"/>
+											</FormattedString>
+										</Label.FormattedText>
+									</Label>
+								</StackLayout>
+								
+							</Frame>
+						</ContentView>
+					</ViewCell>
+				</DataTemplate>
+			</ListView.ItemTemplate>
+		</ListView>
+		
+		<BoxView Color="#FF3838" HeightRequest="2"/>
+		
+		<Label Padding="5" FontSize="20" Text="Total Price: $0 | Items: 0" HorizontalOptions="CenterAndExpand"></Label>
+		
+		<BoxView Color="#FF3838" HeightRequest="2"/>
+		
+		<StackLayout Padding="5" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+			<Button Text="Add" Clicked="Add_Clicked"></Button>
+			<Button Text="Coupon"></Button>
+			<Button Text="Check-Out"></Button>
+		</StackLayout>
+		
+		<BoxView Color="#FF3838" HeightRequest="2" VerticalOptions="End"/>
+		
+	</StackLayout>
+
+</ContentPage>

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="CleverShoppingList.ReportsPage">
+    <ContentPage.Content>
+        <StackLayout>
+			<Label Padding="5" FontSize="20"  Text="This Month's Expenditure: $0" HorizontalOptions="CenterAndExpand"/>
+			<Label Padding="5" FontSize="20"  Text="Compared to last month: $0" HorizontalOptions="CenterAndExpand"/>
+			<Button Text="View Monthly Spending" WidthRequest="200" HorizontalOptions="Center"/>
+			<BoxView Color="#FF3838" HeightRequest="2"/>
+
+			<Label Padding="5" FontSize="20" Text="Your Most Expensive Items" HorizontalOptions="CenterAndExpand"/>
+			<Button Text="View Your Items" WidthRequest="200" HorizontalOptions="Center"/>
+			<ScrollView>
+				<Label Text="Items sorted by expense will go here" HorizontalOptions="Center"/>
+			</ScrollView>
+			<BoxView Color="#FF3838" HeightRequest="2" VerticalOptions="End"/>
+		</StackLayout>
+    </ContentPage.Content>
+</ContentPage>

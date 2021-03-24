@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:data="clr-namespace:CleverShoppingList.ViewModels;assembly=CleverShoppingList"
+             mc:Ignorable="d"
+             x:Class="CleverShoppingList.TabsPage" 
+			 BarBackgroundColor="#FF3838">
+
+	<TabbedPage.Resources>
+		<ResourceDictionary>
+			<Style TargetType="Button">
+				<Setter Property="TextColor" Value="White"/>
+				<Setter Property="BackgroundColor" Value="#FF3838"/>
+			</Style>
+			<data:TabsViewModel x:Key="tvm"></data:TabsViewModel>
+		</ResourceDictionary>
+	</TabbedPage.Resources>
+
+
+</TabbedPage>

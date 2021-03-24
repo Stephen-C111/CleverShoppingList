@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleverShoppingList.Android", "CleverShoppingList.Android\CleverShoppingList.Android.csproj", "{912051ED-6C08-45B6-B921-FBCBD875BF5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleverShoppingList", "CleverShoppingList\CleverShoppingList.csproj", "{A7D205C1-DFFA-4EED-B70F-B8C7080D1CC3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{912051ED-6C08-45B6-B921-FBCBD875BF5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{912051ED-6C08-45B6-B921-FBCBD875BF5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{912051ED-6C08-45B6-B921-FBCBD875BF5E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{912051ED-6C08-45B6-B921-FBCBD875BF5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{912051ED-6C08-45B6-B921-FBCBD875BF5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{912051ED-6C08-45B6-B921-FBCBD875BF5E}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{A7D205C1-DFFA-4EED-B70F-B8C7080D1CC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7D205C1-DFFA-4EED-B70F-B8C7080D1CC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7D205C1-DFFA-4EED-B70F-B8C7080D1CC3}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{A7D205C1-DFFA-4EED-B70F-B8C7080D1CC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7D205C1-DFFA-4EED-B70F-B8C7080D1CC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7D205C1-DFFA-4EED-B70F-B8C7080D1CC3}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E6B5D0DB-17F0-4155-BB63-4E0FA5C546E1}
+	EndGlobalSection
+EndGlobal
