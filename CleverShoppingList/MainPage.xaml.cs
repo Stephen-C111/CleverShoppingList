@@ -37,7 +37,9 @@ namespace CleverShoppingList
                 //Item i2 = await item.FirstAsync();
                 ListItem li = new ListItem(i.ID, Priority.High, -1);
                 await TabsViewModel.tvm.Conn.InsertAsync(li);
+            //Update the visuals for both lists
             await ListViewModel.lvm.UpdateList();
+            ItemViewModel.ivm.UpdateItemList();
         }
 
         private void X_Clicked(object sender, EventArgs e)
@@ -66,11 +68,21 @@ namespace CleverShoppingList
                             decimal price = i.UseSale ? i.SalePrice : i.Price;
                             ArchivedItem a = new ArchivedItem(t.ID, i.Name, i.Amount, price);
                             await TabsViewModel.tvm.Conn.InsertAsync(a);
+                        //Update the foreign item with x bought and x spent.
+                        var foreignList = from f in TabsViewModel.tvm.Conn.Table<Item>()
+                                          where i.ForeignID == f.ID
+                                          select f;
+                        Item foreign = await foreignList.FirstAsync();
+                        foreign.TotalCost += a.Price;
+                        foreign.Purchased += a.Amount;
+                        await TabsViewModel.tvm.Conn.UpdateAsync(foreign);
                             //Delete the ListItem.
                             await TabsViewModel.tvm.Conn.DeleteAsync(i);
                         }
                     }
+                    //update the visuals for both lists.
                     await ListViewModel.lvm.UpdateList();
+                    ItemViewModel.ivm.UpdateItemList();
             }
             
         }

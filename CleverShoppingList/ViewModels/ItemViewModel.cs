@@ -14,9 +14,22 @@ namespace CleverShoppingList.ViewModels
 {
     class ItemViewModel : ViewModelBase
     {
+        public static ItemViewModel ivm;
         List<Item> itemList = new List<Item>();
+        public List<Item> ItemList { get => itemList; set { SetProperty(ref itemList, value); } }
 
 
-        List<Item> ItemList { get => itemList; set { SetProperty(ref itemList, value); } }
+        public ItemViewModel()
+        {
+            ivm = this;
+            UpdateItemList();
+        }
+
+        public async void UpdateItemList()
+        {
+            var list = await TabsViewModel.tvm.Conn.Table<Item>().ToListAsync();
+            
+            ItemList = list;
+        }
     }
 }
