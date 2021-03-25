@@ -16,5 +16,10 @@ namespace CleverShoppingList
         {
             InitializeComponent();
         }
+
+        private void itemView_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+
+        }
     }
 }

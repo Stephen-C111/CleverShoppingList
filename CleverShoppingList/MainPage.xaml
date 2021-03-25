@@ -17,11 +17,12 @@
 			<ListView.ItemTemplate>
 				<DataTemplate>
 					<ViewCell>
-						<ContentView>
+						<ContentView Padding="5">
 							<Frame BorderColor="#FF3838" Padding="5">
-								<StackLayout Orientation="Horizontal">
-									<Label Text="{Binding Name}"/>
-									<Label>
+								<StackLayout Orientation="Horizontal" >
+									<CheckBox IsChecked="{Binding Checked}"/>
+									<Label Text="{Binding Name}" VerticalOptions="Center"/>
+									<Label VerticalOptions="Center">
 										<Label.FormattedText>
 											<FormattedString>
 												<Span Text="Priority: "/>
@@ -40,7 +41,16 @@
 		
 		<BoxView Color="#FF3838" HeightRequest="2"/>
 		
-		<Label Padding="5" FontSize="20" Text="Total Price: $0 | Items: 0" HorizontalOptions="CenterAndExpand"></Label>
+		<Label Padding="5" FontSize="20" HorizontalOptions="CenterAndExpand">
+			<Label.FormattedText>
+				<FormattedString>
+					<Span Text="Total Price: "/>
+					<Span Text="{Binding TotalPrice}"/>
+					<Span Text="  |  Amount of Items: "/>
+					<Span Text="{Binding TotalAmount}"/>
+				</FormattedString>
+			</Label.FormattedText>
+		</Label>
 		
 		<BoxView Color="#FF3838" HeightRequest="2"/>
 		

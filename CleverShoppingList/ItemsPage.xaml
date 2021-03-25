@@ -4,17 +4,41 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+			 xmlns:data="clr-namespace:CleverShoppingList.ViewModels;assembly=CleverShoppingList"
              x:Class="CleverShoppingList.ItemsPage">
+
+	<ContentPage.Resources>
+		<data:ItemViewModel x:Key="ivm"/>
+	</ContentPage.Resources>
+	
     <ContentPage.Content>
 		<StackLayout>
-			<ScrollView VerticalOptions="FillAndExpand">
-				<Label Text="This is where the items scrollview will be." HorizontalOptions="CenterAndExpand"/>
-			</ScrollView>
+			
+			<ListView x:Name="itemView" ItemTapped="itemView_ItemTapped"  BindingContext="{StaticResource ivm}" ItemsSource="{Binding ItemList}" HasUnevenRows="True">
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<ContentView Padding="5">
+								<Frame BorderColor="#FF3838" Padding="5">
+									<StackLayout Orientation="Horizontal" >
+										<Label Text="{Binding Name}" VerticalOptions="Center"/>
+										
+									</StackLayout>
+
+								</Frame>
+							</ContentView>
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+
 			<BoxView Color="#FF3838" HeightRequest="2"/>
+			
 		<StackLayout Padding="5" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
 				<Button Text="Add"></Button>
 			</StackLayout>
 			<BoxView Color="#FF3838" HeightRequest="2" VerticalOptions="End"/>
 		</StackLayout>
+		
 	</ContentPage.Content>
 </ContentPage>

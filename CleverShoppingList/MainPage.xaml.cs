@@ -39,5 +39,10 @@ namespace CleverShoppingList
                 await TabsViewModel.tvm.Conn.InsertAsync(li);
             await ListViewModel.lvm.UpdateList();
         }
+
+        private void X_Clicked(object sender, EventArgs e)
+        {
+            //Delete the listitem with a warning dialog.
+        }
     }
 }

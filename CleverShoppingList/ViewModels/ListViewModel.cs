@@ -16,8 +16,14 @@ namespace CleverShoppingList.ViewModels
     {
         public static ListViewModel lvm;
         List<ListItem> listItems = new List<ListItem>();
+        int totalAmount;
+        decimal totalPrice;
+
 
         public List<ListItem> ListItems { get => listItems; set { SetProperty(ref listItems, value); } }
+        public int TotalAmount { get => totalAmount; set { SetProperty(ref totalAmount, value); } }
+        public decimal TotalPrice { get => totalPrice; set { SetProperty(ref totalPrice, value); } }
+
 
         public ListViewModel()
         {
