@@ -18,8 +18,9 @@ namespace CleverShoppingList.Models
         Item foreignItem; //This will be populated using the foreignID
         Priority priority;
         bool check;
-        int amount; 
-        decimal salePrice;
+        int amount = 1; 
+        decimal salePrice = -1;
+        bool useSale = false;
         
 
         [AutoIncrement, PrimaryKey]
@@ -29,9 +30,10 @@ namespace CleverShoppingList.Models
         public decimal Price { get => foreignItem != null ? foreignItem.Price : 0m; }
         public string Name { get => foreignItem != null ? foreignItem.Name : "NULL"; }
         public Priority Priority { get => priority; set { SetProperty(ref priority, value); } }
-        public bool Check { get => check; set { SetProperty(ref check, value); } }
+        public bool Check { get => check; set { SetProperty(ref check, value); TabsViewModel.tvm.Conn.UpdateAsync(this); ListViewModel.lvm.CountPrices(); } }
         public int Amount { get => amount; set { SetProperty(ref amount, value); } }
         public decimal SalePrice { get => salePrice; set { SetProperty(ref salePrice, value); } }
+        public bool UseSale { get => useSale; set { SetProperty(ref useSale, value); } }
 
         //ListItems require the foreignID for an item in Items to reference from, as well as a priority. 
         //The ownerID defaults to -1 to indicate it belongs to the shopping list. Otherwise, it's part 
@@ -45,7 +47,7 @@ namespace CleverShoppingList.Models
             this.foreignID = foreignID;
             this.priority = priority;
             this.ownerID = ownerID;
-             
+            
         }
 
         async public Task LinkToForeignItem()

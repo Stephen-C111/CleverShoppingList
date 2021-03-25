@@ -23,7 +23,11 @@ namespace CleverShoppingList.Models
 
         //ArchivedItems are structurally simpler than a ListItem and only contain necessary values for reporting purposes.
         //The price value should check to see if the sale price is not null, and use that value if so.
-        ArchivedItem(int tripID, string name, int amount, decimal price)
+        public ArchivedItem()
+        {
+
+        }
+        public ArchivedItem(int tripID, string name, int amount, decimal price)
         {
             this.tripID = tripID;
             this.name = name;

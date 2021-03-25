@@ -20,13 +20,18 @@
 						<ContentView Padding="5">
 							<Frame BorderColor="#FF3838" Padding="5">
 								<StackLayout Orientation="Horizontal" >
-									<CheckBox IsChecked="{Binding Checked}"/>
-									<Label Text="{Binding Name}" VerticalOptions="Center"/>
+									<CheckBox IsChecked="{Binding Check, Mode=TwoWay}" />
+									<Label TextColor="Black" FontSize="18" Text="{Binding Name}" VerticalOptions="Center"/>
 									<Label VerticalOptions="Center">
 										<Label.FormattedText>
 											<FormattedString>
-												<Span Text="Priority: "/>
+												<Span Text=" | Amount: "/>
+												<Span Text="{Binding Amount}"/>
+												<Span Text=" | Price: "/>
+												<Span Text="{Binding Price}"/>
+												<Span Text=" | Priority: "/>
 												<Span Text="{Binding Priority}"/>
+												
 											</FormattedString>
 										</Label.FormattedText>
 									</Label>
@@ -41,13 +46,17 @@
 		
 		<BoxView Color="#FF3838" HeightRequest="2"/>
 		
-		<Label Padding="5" FontSize="20" HorizontalOptions="CenterAndExpand">
+		<Label Padding="5" FontSize="20" HorizontalOptions="CenterAndExpand" BindingContext="{StaticResource lvm}">
 			<Label.FormattedText>
 				<FormattedString>
 					<Span Text="Total Price: "/>
 					<Span Text="{Binding TotalPrice}"/>
+					<Span Text="/"/>
+					<Span Text="{Binding MaxPrice}"/>
 					<Span Text="  |  Amount of Items: "/>
 					<Span Text="{Binding TotalAmount}"/>
+					<Span Text="/"/>
+					<Span Text="{Binding MaxAmount}"/>
 				</FormattedString>
 			</Label.FormattedText>
 		</Label>
@@ -56,8 +65,7 @@
 		
 		<StackLayout Padding="5" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
 			<Button Text="Add" Clicked="Add_Clicked"></Button>
-			<Button Text="Coupon"></Button>
-			<Button Text="Check-Out"></Button>
+			<Button Text="Check-Out" Clicked="CheckOut_Clicked"></Button>
 		</StackLayout>
 		
 		<BoxView Color="#FF3838" HeightRequest="2" VerticalOptions="End"/>

@@ -16,7 +16,7 @@ namespace CleverShoppingList.Models
         public DateTime Date { get => date; set { SetProperty(ref date, value); } }
 
         //Like Recipes, ArchivedTrips are simple, and act as an object for ArchivedItems to group up with, and in fact require no values to be constructed.
-        ArchivedTrip()
+        public ArchivedTrip()
         {
             date = DateTime.Today;
         }

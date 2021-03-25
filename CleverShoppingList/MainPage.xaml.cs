@@ -44,5 +44,35 @@ namespace CleverShoppingList
         {
             //Delete the listitem with a warning dialog.
         }
+
+        private async void CheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
+        {
+            
+        }
+
+        private async void CheckOut_Clicked(object sender, EventArgs e)
+        {
+            //Dialog confirming the user's action.
+            if (await DisplayAlert("Check out?", "All checked items will be removed from the list and archived for your reports. You can re-add these items again with the drop-down menu while adding items.", "Yes", "No"))
+            {
+                    ArchivedTrip t = new ArchivedTrip();
+                    //Create an ArchivedTrip and use its id to connect ArchivedItems to it.
+                    await TabsViewModel.tvm.Conn.InsertAsync(t);
+                    foreach (ListItem i in ListViewModel.lvm.ListItems)
+                    {
+                        if (i.Check)
+                        {
+                            //Archive the ListItem into an ArchivedItem.
+                            decimal price = i.UseSale ? i.SalePrice : i.Price;
+                            ArchivedItem a = new ArchivedItem(t.ID, i.Name, i.Amount, price);
+                            await TabsViewModel.tvm.Conn.InsertAsync(a);
+                            //Delete the ListItem.
+                            await TabsViewModel.tvm.Conn.DeleteAsync(i);
+                        }
+                    }
+                    await ListViewModel.lvm.UpdateList();
+            }
+            
+        }
     }
 }
