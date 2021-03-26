@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+			 xmlns:data="clr-namespace:CleverShoppingList.ViewModels;assembly=CleverShoppingList"
+             x:Class="CleverShoppingList.AddItem">
+
+	<ContentPage.Resources>
+		<data:AddItemViewModel x:Key="aivm"/>
+		<Style TargetType="Button">
+			<Setter Property="TextColor" Value="White"/>
+			<Setter Property="BackgroundColor" Value="#FF3838"/>
+		</Style>
+	</ContentPage.Resources>
+	
+    <ContentPage.Content >
+        <StackLayout VerticalOptions="Start" BindingContext="{StaticResource aivm}">
+			
+			<BoxView HeightRequest="2" Color="#FF3838"/>
+			
+			<Label Text="Add a New Item." FontSize="20"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+			<StackLayout Padding="10, 0" Orientation="Horizontal">
+				<Label VerticalOptions="Center" Text="Name:"/>
+				<Entry HorizontalOptions="StartAndExpand" WidthRequest="300" Text="{Binding Name}"/>
+			</StackLayout>
+			<StackLayout Padding="10,0" Orientation="Horizontal">
+				<Label VerticalOptions="Center" Text="Price:"/>
+				<Entry HorizontalOptions="StartAndExpand" WidthRequest="80" Text="{Binding Price}" Placeholder="0.00"/>
+				<Label VerticalOptions="Center" Text="Priority:"/>
+				<Picker ItemsSource="{Binding PriorityList}" SelectedItem="{Binding ItemPriority}" HorizontalOptions="StartAndExpand" WidthRequest="80"/>
+			</StackLayout>
+			<Button Text="Create and Add" HorizontalOptions="Center" Clicked="Create_Clicked"/>
+			
+			<BoxView HeightRequest="2" Color="#FF3838"/>
+
+			<Label Text="Select Previously Used Items." HorizontalOptions="CenterAndExpand" FontSize="20"/>
+			<ListView x:Name="itemView" ItemsSource="{Binding ItemList}" HasUnevenRows="True">
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<ContentView Padding="5">
+								<Frame BorderColor="#FF3838" Padding="5">
+									<StackLayout Orientation="Horizontal">
+										<Label VerticalOptions="Center">
+											<Label.FormattedText>
+												<FormattedString>
+													<Span Text="{Binding Name}"/>
+													<Span Text=" | Amount Purchased: "/>
+													<Span Text="{Binding Purchased}"/>
+													<Span Text=" | Amount Spent: "/>
+													<Span Text="{Binding TotalCost}"/>
+												</FormattedString>
+											</Label.FormattedText>
+										</Label>
+									</StackLayout>
+								</Frame>
+							</ContentView>
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+
+			<BoxView HeightRequest="2" Color="#FF3838"/>
+
+			<StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="10">
+				<Button Text="Cancel"/>
+				<Button Text="Add Selected Items"/>
+			</StackLayout>
+
+			<BoxView HeightRequest="2" Color="#FF3838"/>
+		</StackLayout>
+    </ContentPage.Content>
+</ContentPage>

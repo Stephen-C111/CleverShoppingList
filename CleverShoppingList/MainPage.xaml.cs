@@ -27,19 +27,18 @@ namespace CleverShoppingList
 
         private async void Add_Clicked(object sender, EventArgs e)
         {
-            Random r = new Random();
-            //Create test items
-                Item i = new Item("test item" + r.Next(1, 999), 4.99m);
-                await TabsViewModel.tvm.Conn.InsertAsync(i);
-                //var item = from x in TabsViewModel.tvm.Conn.Table<Item>()
-                //           where x.Name == "test item"
-                //           select x;
-                //Item i2 = await item.FirstAsync();
-                ListItem li = new ListItem(i.ID, Priority.High, -1);
-                await TabsViewModel.tvm.Conn.InsertAsync(li);
-            //Update the visuals for both lists
-            await ListViewModel.lvm.UpdateList();
-            ItemViewModel.ivm.UpdateItemList();
+            await Navigation.PushModalAsync(new AddItem());
+
+            //Random r = new Random();
+            ////Create test items
+            //    Item i = new Item("test item" + r.Next(1, 999), 4.99m);
+            //    await TabsViewModel.tvm.Conn.InsertAsync(i);
+            //    
+            //    ListItem li = new ListItem(i.ID, Priority.High, -1);
+            //    await TabsViewModel.tvm.Conn.InsertAsync(li);
+            ////Update the visuals for both lists
+            //await ListViewModel.lvm.UpdateList();
+            //ItemViewModel.ivm.UpdateItemList();
         }
 
         private void X_Clicked(object sender, EventArgs e)
