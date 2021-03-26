@@ -17,7 +17,7 @@ namespace CleverShoppingList.ViewModels
         public static AddItemViewModel aivm;
         string name;
         decimal price;
-        Priority itemPriority = Priority.Low;
+        Priority itemPriority = Priority.Normal;
 
         public List<Item> ItemList { get => ItemViewModel.ivm.ItemList; }
         public string Name { get => name; set { SetProperty(ref name, value); } }

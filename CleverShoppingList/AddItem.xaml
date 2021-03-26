@@ -38,13 +38,14 @@
 			<BoxView HeightRequest="2" Color="#FF3838"/>
 
 			<Label Text="Select Previously Used Items." HorizontalOptions="CenterAndExpand" FontSize="20"/>
-			<ListView x:Name="itemView" ItemsSource="{Binding ItemList}" HasUnevenRows="True">
+			<ListView x:Name="itemView" ItemsSource="{Binding ItemList}" ItemTapped="itemView_ItemTapped" HasUnevenRows="True" SelectionMode="Single">
 				<ListView.ItemTemplate>
 					<DataTemplate>
 						<ViewCell>
 							<ContentView Padding="5">
 								<Frame BorderColor="#FF3838" Padding="5">
 									<StackLayout Orientation="Horizontal">
+										<CheckBox x:Name="itemCheck" InputTransparent="True" IsChecked="{Binding Selected}"/>
 										<Label VerticalOptions="Center">
 											<Label.FormattedText>
 												<FormattedString>
@@ -67,8 +68,8 @@
 			<BoxView HeightRequest="2" Color="#FF3838"/>
 
 			<StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="10">
-				<Button Text="Cancel"/>
-				<Button Text="Add Selected Items"/>
+				<Button Text="Cancel" Clicked="Cancel_Clicked"/>
+				<Button Text="Add Selected Items" Clicked="AddSelected_Clicked"/>
 			</StackLayout>
 
 			<BoxView HeightRequest="2" Color="#FF3838"/>

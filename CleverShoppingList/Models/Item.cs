@@ -13,6 +13,7 @@ namespace CleverShoppingList.Models
         decimal price;
         int purchased;
         decimal totalCost;
+        bool selected = false; //Used to add multiple items to main shopping list.
 
         [AutoIncrement, PrimaryKey]
         public int ID { get => id; set { SetProperty(ref id, value); } }
@@ -20,6 +21,7 @@ namespace CleverShoppingList.Models
         public decimal Price { get => price; set { SetProperty(ref price, value); } }
         public int Purchased { get => purchased; set { SetProperty(ref purchased, value); } }
         public decimal TotalCost { get => totalCost; set { SetProperty(ref totalCost, value); } }
+        public bool Selected { get => selected; set { SetProperty(ref selected, value); } }
 
         public Item()
         {
