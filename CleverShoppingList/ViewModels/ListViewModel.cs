@@ -20,6 +20,8 @@ namespace CleverShoppingList.ViewModels
         int maxAmount;
         decimal totalPrice;
         decimal maxPrice;
+        ListItem selectedItem;
+        bool editing = false;
 
 
         public List<ListItem> ListItems { get => listItems; set { SetProperty(ref listItems, value); } }
@@ -27,7 +29,19 @@ namespace CleverShoppingList.ViewModels
         public int MaxAmount { get => maxAmount; set { SetProperty(ref maxAmount, value); } }
         public decimal TotalPrice { get => totalPrice; set { SetProperty(ref totalPrice, value); } }
         public decimal MaxPrice { get => maxPrice; set { SetProperty(ref maxPrice, value); } }
+        public ListItem SelectedItem { get => selectedItem; set { SetProperty(ref selectedItem, value); } }
+        public bool Editing { get => editing; set { SetProperty(ref editing, value); } }
 
+        public List<Priority> PriorityList
+        {
+            get
+            {
+                var array = Enum.GetValues(typeof(Priority));
+                var list = new List<Priority>();
+                list.AddRange((IEnumerable<Priority>)array);
+                return list;
+            }
+        }
 
         public ListViewModel()
         {
@@ -37,7 +51,10 @@ namespace CleverShoppingList.ViewModels
 
         public async Task UpdateList()
         {
-            var list = await TabsViewModel.tvm.Conn.Table<ListItem>().ToListAsync();
+            var qlist = from x in TabsViewModel.tvm.Conn.Table<ListItem>()
+                       orderby x.Priority descending
+                       select x;
+            var list = await qlist.ToListAsync();
             foreach (ListItem li in list)
             {
                 await li.LinkToForeignItem();

@@ -15,14 +15,18 @@ namespace CleverShoppingList
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
+        public static MainPage mp;
+
         public MainPage()
         {
+            mp = this;
             InitializeComponent();
         }
 
         private void listItemView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            //Open edit dialog
+            ListViewModel.lvm.SelectedItem = listItemView.SelectedItem as ListItem;
+            ListViewModel.lvm.Editing = true;
         }
 
         private async void Add_Clicked(object sender, EventArgs e)
@@ -84,6 +88,23 @@ namespace CleverShoppingList
                     ItemViewModel.ivm.UpdateItemList();
             }
             
+        }
+
+        private void StopEditing_Clicked(object sender, EventArgs e)
+        {
+            ListViewModel.lvm.Editing = false;
+        }
+
+        private async void Stepper_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            await TabsViewModel.tvm.Conn.UpdateAsync(ListViewModel.lvm.SelectedItem);
+            await ListViewModel.lvm.UpdateList();
+        }
+
+        private async void Picker_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            await TabsViewModel.tvm.Conn.UpdateAsync(ListViewModel.lvm.SelectedItem);
+            await ListViewModel.lvm.UpdateList();
         }
     }
 }

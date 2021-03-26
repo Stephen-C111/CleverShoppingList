@@ -29,7 +29,7 @@
 			</StackLayout>
 			<StackLayout Padding="10,0" Orientation="Horizontal">
 				<Label VerticalOptions="Center" Text="Price:"/>
-				<Entry HorizontalOptions="StartAndExpand" WidthRequest="80" Text="{Binding Price}" Placeholder="0.00"/>
+				<Entry HorizontalOptions="StartAndExpand" WidthRequest="80" Text="{Binding Price}" Placeholder="0.00" IsTextPredictionEnabled="False" IsSpellCheckEnabled="False" Keyboard="Numeric"/>
 				<Label VerticalOptions="Center" Text="Priority:"/>
 				<Picker ItemsSource="{Binding PriorityList}" SelectedItem="{Binding ItemPriority}" HorizontalOptions="StartAndExpand" WidthRequest="80"/>
 			</StackLayout>

@@ -21,17 +21,17 @@
 							<Frame BorderColor="#FF3838" Padding="5">
 								<StackLayout Orientation="Horizontal" >
 									<CheckBox IsChecked="{Binding Check, Mode=TwoWay}" />
-									<Label TextColor="Black" FontSize="18" Text="{Binding Name}" VerticalOptions="Center"/>
+									<Label TextColor="Black" FontSize="18" Text="{Binding Name}" WidthRequest="100" MinimumWidthRequest="10" VerticalOptions="Center"/>
+									
 									<Label VerticalOptions="Center">
 										<Label.FormattedText>
 											<FormattedString>
-												<Span Text=" | Amount: "/>
+												<Span Text="  Amount: "/>
 												<Span Text="{Binding Amount}"/>
 												<Span Text=" | Price: "/>
 												<Span Text="{Binding Price}"/>
 												<Span Text=" | Priority: "/>
 												<Span Text="{Binding Priority}"/>
-												
 											</FormattedString>
 										</Label.FormattedText>
 									</Label>
@@ -43,7 +43,25 @@
 				</DataTemplate>
 			</ListView.ItemTemplate>
 		</ListView>
+
+		<StackLayout IsVisible="{Binding Editing}" BindingContext="{StaticResource lvm}">
+			<BoxView Color="#FF3838" HeightRequest="2"/>
+			<StackLayout HorizontalOptions="Center">
+				
+				<StackLayout Orientation="Horizontal">
+					<Label Text="Amount: " VerticalOptions="Center"/>
+					<Label Text="{Binding SelectedItem.Amount}" VerticalOptions="Center" FontSize="20"/>
+					<Stepper Value="{Binding SelectedItem.Amount}" PropertyChanged="Stepper_PropertyChanged"/>
+				</StackLayout>
+				<StackLayout Orientation="Horizontal">
+					<Label Text="Priority: " VerticalOptions="Center"/>
+					<Picker ItemsSource="{Binding PriorityList}" SelectedItem="{Binding SelectedItem.Priority}" PropertyChanged="Picker_PropertyChanged" HorizontalOptions="StartAndExpand" WidthRequest="80"/>
+				</StackLayout>
+				<Button Text="Close" HorizontalOptions="Center" Clicked="StopEditing_Clicked"/>
+			</StackLayout>
+		</StackLayout>
 		
+
 		<BoxView Color="#FF3838" HeightRequest="2"/>
 		
 		<Label Padding="5" FontSize="20" HorizontalOptions="CenterAndExpand" BindingContext="{StaticResource lvm}">
@@ -60,6 +78,8 @@
 				</FormattedString>
 			</Label.FormattedText>
 		</Label>
+
+		
 		
 		<BoxView Color="#FF3838" HeightRequest="2"/>
 		

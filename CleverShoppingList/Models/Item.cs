@@ -6,7 +6,7 @@ using SQLite;
 namespace CleverShoppingList.Models
 {
     [Table("Items")]
-    class Item : ViewModelBase
+    public class Item : ViewModelBase
     {
         int id;
         string name;

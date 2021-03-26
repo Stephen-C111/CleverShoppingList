@@ -18,7 +18,7 @@ namespace CleverShoppingList.Models
         Item foreignItem; //This will be populated using the foreignID
         Priority priority;
         bool check;
-        int amount = 1; 
+        int amount; 
         decimal salePrice = -1;
         bool useSale = false;
         
@@ -47,7 +47,7 @@ namespace CleverShoppingList.Models
             this.foreignID = foreignID;
             this.priority = priority;
             this.ownerID = ownerID;
-            
+            amount = 1;
         }
 
         async public Task LinkToForeignItem()
