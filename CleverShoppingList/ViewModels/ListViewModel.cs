@@ -55,7 +55,7 @@ namespace CleverShoppingList.ViewModels
             
 
             var qlist = from x in TabsViewModel.tvm.Conn.Table<ListItem>()
-                       orderby x.Priority descending 
+                       orderby x.Priority descending
                        select x;
             var list = await qlist.ToListAsync();
             foreach (ListItem li in list)

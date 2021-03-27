@@ -54,6 +54,8 @@ namespace CleverShoppingList
             {
                 await TabsViewModel.tvm.Conn.DeleteAsync(ListViewModel.lvm.SelectedItem);
                 await ListViewModel.lvm.UpdateList();
+                ListViewModel.lvm.Editing = false;
+                ListViewModel.lvm.NotEditing = true;
             }
         }
 

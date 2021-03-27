@@ -19,7 +19,7 @@ namespace CleverShoppingList.ViewModels
         decimal price;
         Priority itemPriority = Priority.Normal;
 
-        public List<Item> ItemList { get => ItemViewModel.ivm.ItemList; }
+        public ObservableCollection<Item> ItemList { get => ItemViewModel.ivm.ItemList; }
         public string Name { get => name; set { SetProperty(ref name, value); } }
         public decimal Price { get => price; set { SetProperty(ref price, value); } }
         public Priority ItemPriority { get => itemPriority; set { SetProperty(ref itemPriority, value); } }

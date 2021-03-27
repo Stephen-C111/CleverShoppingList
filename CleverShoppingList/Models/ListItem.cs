@@ -52,11 +52,26 @@ namespace CleverShoppingList.Models
 
         async public Task LinkToForeignItem()
         {
-            var query = from x in TabsViewModel.tvm.Conn.Table<Item>()
-                        where x.ID == foreignID
-                        select x;
-            foreignItem = await query.FirstAsync();
-            this.Price = foreignItem.Price;
+            try
+            {
+                var query = from x in TabsViewModel.tvm.Conn.Table<Item>()
+                            where x.ID == foreignID
+                            select x;
+                
+                foreignItem = await query.FirstAsync();
+                if (foreignItem.Name == null)
+                {
+                    await TabsViewModel.tvm.Conn.DeleteAsync(this);
+                    return;
+                }
+                this.Price = foreignItem.Price;
+            }
+            catch
+            {
+                await TabsViewModel.tvm.Conn.DeleteAsync(this);
+                return;
+            }
+            
         }
     }
 }

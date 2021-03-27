@@ -12,7 +12,7 @@
 	</ContentPage.Resources>
 	
     <ContentPage.Content>
-		<StackLayout>
+		<StackLayout BindingContext="{StaticResource ivm}">
 			
 			<ListView x:Name="itemView" ItemTapped="itemView_ItemTapped"  BindingContext="{StaticResource ivm}" ItemsSource="{Binding ItemList}" HasUnevenRows="True">
 				<ListView.ItemTemplate>
@@ -25,7 +25,9 @@
 										<Label VerticalOptions="Center">
 											<Label.FormattedText>
 												<FormattedString>
-													<Span Text="{Binding Name}"/>
+													<Span Text="{Binding Name}" FontSize="20" TextColor="Black"/>
+													<Span Text=" | Price: "/>
+													<Span Text="{Binding Price}"/>
 													<Span Text=" | Amount Purchased: "/>
 													<Span Text="{Binding Purchased}"/>
 													<Span Text=" | Amount Spent: "/>
@@ -44,10 +46,41 @@
 				</ListView.ItemTemplate>
 			</ListView>
 
-			<BoxView Color="#FF3838" HeightRequest="2"/>
+			<StackLayout IsVisible="{Binding Editing}">
+				<BoxView Color="#FF3838" HeightRequest="2"/>
+
+				<StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+					<Label Text="Name: " VerticalOptions="Center"/>
+					<Entry Text="{Binding SelectedItem.Name}" WidthRequest="200"/>
+				</StackLayout>
+				<StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+					<Label Text="Price: " VerticalOptions="Center"/>
+					<Entry Text="{Binding SelectedItem.Price}" Keyboard="Numeric" WidthRequest="50"/>
+				</StackLayout>
+				<StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+					<!--Button Text="Cancel" Clicked="Cancel_Clicked"/-->
+					<Button Text="Delete" Clicked="Delete_Clicked"/>
+					<Button Text="Save" Clicked="Save_Clicked"/>
+				</StackLayout>
+				
+			</StackLayout>
+
+			<BoxView Color="#FF3838" HeightRequest="2" IsVisible="{Binding NotEditing}"/>
 			
-		<StackLayout Padding="5" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-				<Button Text="Add"></Button>
+		<StackLayout Padding="5" Orientation="Vertical" HorizontalOptions="CenterAndExpand" >
+				<StackLayout Orientation="Horizontal" HorizontalOptions="Center" IsVisible="{Binding Adding}">
+					<Label Text="Name: " VerticalOptions="Center"/>
+					<Entry Text="{Binding ItemName}" WidthRequest="200"/>
+				</StackLayout>
+				<StackLayout Orientation="Horizontal" HorizontalOptions="Center" IsVisible="{Binding Adding}">
+					<Label Text="Price: " VerticalOptions="Center"/>
+					<Entry Text="{Binding ItemPrice}" Keyboard="Numeric" WidthRequest="50"/>
+				</StackLayout>
+				<StackLayout IsVisible="{Binding NotEditing}">
+					<Button Text="Add" HorizontalOptions="Center" Clicked="AddNewItem_Clicked" IsVisible="{Binding NotAdding}"></Button>
+				</StackLayout>
+				
+				<Button Text="Save" HorizontalOptions="Center" Clicked="SaveNewItem_Clicked" IsVisible="{Binding Adding}"/>
 			</StackLayout>
 			<BoxView Color="#FF3838" HeightRequest="2" VerticalOptions="End"/>
 		</StackLayout>
