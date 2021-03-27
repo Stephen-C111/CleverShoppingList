@@ -39,5 +39,7 @@ namespace CleverShoppingList.ViewModels
                 return list;
             }
         }
+
+        
     }
 }

@@ -26,6 +26,7 @@ namespace CleverShoppingList
         private void listItemView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             ListViewModel.lvm.SelectedItem = listItemView.SelectedItem as ListItem;
+            ListViewModel.lvm.CountPrices();
             ListViewModel.lvm.Editing = true;
             ListViewModel.lvm.NotEditing = false;
         }
@@ -46,9 +47,14 @@ namespace CleverShoppingList
             //ItemViewModel.ivm.UpdateItemList();
         }
 
-        private void X_Clicked(object sender, EventArgs e)
+        private async void X_Clicked(object sender, EventArgs e)
         {
             //Delete the listitem with a warning dialog.
+            if (await DisplayAlert("Remove Item?", "You can re-add the item later, if needed.", "Yes", "No"))
+            {
+                await TabsViewModel.tvm.Conn.DeleteAsync(ListViewModel.lvm.SelectedItem);
+                await ListViewModel.lvm.UpdateList();
+            }
         }
 
         private async void CheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
@@ -69,7 +75,7 @@ namespace CleverShoppingList
                         if (i.Check)
                         {
                             //Archive the ListItem into an ArchivedItem.
-                            decimal price = i.UseSale ? i.SalePrice : i.Price;
+                            decimal price = i.Price;
                             ArchivedItem a = new ArchivedItem(t.ID, i.Name, i.Amount, price * i.Amount);
                             await TabsViewModel.tvm.Conn.InsertAsync(a);
                         //Update the foreign item with x bought and x spent.
@@ -100,14 +106,14 @@ namespace CleverShoppingList
             //await ListViewModel.lvm.UpdateList();
         }
 
-        private async void Stepper_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void Stepper_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            //if (ListViewModel.lvm.Editing)
-            //{
+            if (ListViewModel.lvm.Editing)
+            {
 
-            //    await TabsViewModel.tvm.Conn.UpdateAsync(ListViewModel.lvm.SelectedItem);
-            //    await ListViewModel.lvm.UpdateList();
-            //}
+               
+                ListViewModel.lvm.CountPrices();
+            }
 
 
 
@@ -125,9 +131,6 @@ namespace CleverShoppingList
             
         }
 
-        private void Edit_Clicked(object sender, EventArgs e)
-        {
-            
-        }
+        
     }
 }

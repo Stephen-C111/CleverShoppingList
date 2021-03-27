@@ -58,8 +58,14 @@
 				<StackLayout Orientation="Horizontal">
 					<Label Text="Priority: " VerticalOptions="Center"/>
 					<Picker ItemsSource="{Binding PriorityList}" SelectedItem="{Binding SelectedItem.Priority}" PropertyChanged="Picker_PropertyChanged" HorizontalOptions="StartAndExpand" WidthRequest="80"/>
+					<Label Text="Price: " VerticalOptions="Center"/>
+					<Entry Text="{Binding SelectedItem.Price}" Keyboard="Numeric"/>
 				</StackLayout>
-				<Button Text="Save And Close" HorizontalOptions="Center" Clicked="StopEditing_Clicked"/>
+				<StackLayout Orientation="Horizontal">
+					<Button Text="Save And Close" HorizontalOptions="Center" Clicked="StopEditing_Clicked"/>
+					<Button Text="Delete" HorizontalOptions="Center" Clicked="X_Clicked"/>
+				</StackLayout>
+				
 			</StackLayout>
 		</StackLayout>
 

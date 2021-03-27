@@ -19,21 +19,20 @@ namespace CleverShoppingList.Models
         Priority priority;
         bool check;
         int amount; 
-        decimal salePrice = -1;
-        bool useSale = false;
+        decimal price;
+        
         
 
         [AutoIncrement, PrimaryKey]
         public int ID { get => id; set { SetProperty(ref id, value); } }
         public int OwnerID { get => ownerID; set { SetProperty(ref ownerID, value); } }
         public int ForeignID { get => foreignID; set { SetProperty(ref foreignID, value); } }
-        public decimal Price { get => foreignItem != null ? foreignItem.Price : 0m; }
+        public decimal Price { get => price; set { SetProperty(ref price, value); } }
         public string Name { get => foreignItem != null ? foreignItem.Name : "NULL"; }
         public Priority Priority { get => priority; set { SetProperty(ref priority, value); } }
         public bool Check { get => check; set { SetProperty(ref check, value); TabsViewModel.tvm.Conn.UpdateAsync(this); ListViewModel.lvm.CountPrices(); } }
         public int Amount { get => amount; set { SetProperty(ref amount, value); } }
-        public decimal SalePrice { get => salePrice; set { SetProperty(ref salePrice, value); } }
-        public bool UseSale { get => useSale; set { SetProperty(ref useSale, value); } }
+        
 
         //ListItems require the foreignID for an item in Items to reference from, as well as a priority. 
         //The ownerID defaults to -1 to indicate it belongs to the shopping list. Otherwise, it's part 
@@ -44,10 +43,11 @@ namespace CleverShoppingList.Models
         }
         public ListItem(int foreignID, Priority priority, int ownerID = -1, int amount = 1)
         {
-            this.foreignID = foreignID;
-            this.priority = priority;
-            this.ownerID = ownerID;
-            this.amount = amount;
+            this.ForeignID = foreignID;
+            this.Priority = priority;
+            this.OwnerID = ownerID;
+            this.Amount = amount;
+            
         }
 
         async public Task LinkToForeignItem()
@@ -56,6 +56,7 @@ namespace CleverShoppingList.Models
                         where x.ID == foreignID
                         select x;
             foreignItem = await query.FirstAsync();
+            this.Price = foreignItem.Price;
         }
     }
 }

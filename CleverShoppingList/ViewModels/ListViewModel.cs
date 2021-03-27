@@ -16,7 +16,6 @@ namespace CleverShoppingList.ViewModels
     {
         public static ListViewModel lvm;
         ObservableCollection<ListItem> listItems = new ObservableCollection<ListItem>();
-        //List<ListItem> listItems = new List<ListItem>();
         int totalAmount;
         int maxAmount;
         decimal totalPrice;
@@ -53,8 +52,10 @@ namespace CleverShoppingList.ViewModels
 
         public async Task UpdateList()
         {
+            
+
             var qlist = from x in TabsViewModel.tvm.Conn.Table<ListItem>()
-                       orderby x.Priority descending
+                       orderby x.Priority descending 
                        select x;
             var list = await qlist.ToListAsync();
             foreach (ListItem li in list)
@@ -79,11 +80,11 @@ namespace CleverShoppingList.ViewModels
 
                 if (i.Check)
                 {
-                    total += i.UseSale ?  i.SalePrice * i.Amount : i.Price * i.Amount;
+                    total += i.Price * i.Amount;
                     amount += i.Amount;
                 }
                 maxAmount += i.Amount;
-                max += i.UseSale ? i.SalePrice * i.Amount : i.Price * i.Amount;
+                max += i.Price * i.Amount;
             }
 
             TotalPrice = total;
