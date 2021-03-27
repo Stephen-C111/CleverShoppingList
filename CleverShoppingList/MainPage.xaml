@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
 			 xmlns:data="clr-namespace:CleverShoppingList.ViewModels;assembly=CleverShoppingList"
+			 xmlns:conv="clr-namespace:CleverShoppingList;assembly=CleverShoppingList"
              x:Class="CleverShoppingList.MainPage">
 
 	<ContentPage.Resources>
@@ -35,6 +36,7 @@
 											</FormattedString>
 										</Label.FormattedText>
 									</Label>
+									
 								</StackLayout>
 								
 							</Frame>
@@ -50,21 +52,21 @@
 				
 				<StackLayout Orientation="Horizontal">
 					<Label Text="Amount: " VerticalOptions="Center"/>
-					<Label Text="{Binding SelectedItem.Amount}" VerticalOptions="Center" FontSize="20"/>
-					<Stepper Value="{Binding SelectedItem.Amount}" PropertyChanged="Stepper_PropertyChanged"/>
+					<Label Text="{Binding SelectedItem.Amount, Mode=OneWay}" VerticalOptions="Center" FontSize="20"/>
+					<Stepper Value="{Binding SelectedItem.Amount, Mode=TwoWay}"  ValueChanged="Stepper_PropertyChanged"/>
 				</StackLayout>
 				<StackLayout Orientation="Horizontal">
 					<Label Text="Priority: " VerticalOptions="Center"/>
 					<Picker ItemsSource="{Binding PriorityList}" SelectedItem="{Binding SelectedItem.Priority}" PropertyChanged="Picker_PropertyChanged" HorizontalOptions="StartAndExpand" WidthRequest="80"/>
 				</StackLayout>
-				<Button Text="Close" HorizontalOptions="Center" Clicked="StopEditing_Clicked"/>
+				<Button Text="Save And Close" HorizontalOptions="Center" Clicked="StopEditing_Clicked"/>
 			</StackLayout>
 		</StackLayout>
-		
 
-		<BoxView Color="#FF3838" HeightRequest="2"/>
-		
-		<Label Padding="5" FontSize="20" HorizontalOptions="CenterAndExpand" BindingContext="{StaticResource lvm}">
+
+		<BoxView Color="#FF3838" HeightRequest="2" BindingContext="{StaticResource lvm}" IsVisible="{Binding NotEditing}"/>
+
+		<Label Padding="5" FontSize="20" HorizontalOptions="CenterAndExpand" BindingContext="{StaticResource lvm}" IsVisible="{Binding NotEditing}">
 			<Label.FormattedText>
 				<FormattedString>
 					<Span Text="Total Price: "/>
@@ -79,11 +81,11 @@
 			</Label.FormattedText>
 		</Label>
 
-		
-		
-		<BoxView Color="#FF3838" HeightRequest="2"/>
-		
-		<StackLayout Padding="5" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+
+		<BoxView Color="#FF3838" HeightRequest="2" BindingContext="{StaticResource lvm}" IsVisible="{Binding NotEditing}"/>
+
+
+		<StackLayout Padding="5" Orientation="Horizontal" HorizontalOptions="CenterAndExpand" BindingContext="{StaticResource lvm}" IsVisible="{Binding NotEditing}">
 			<Button Text="Add" Clicked="Add_Clicked"></Button>
 			<Button Text="Check-Out" Clicked="CheckOut_Clicked"></Button>
 		</StackLayout>

@@ -27,6 +27,7 @@ namespace CleverShoppingList
         {
             ListViewModel.lvm.SelectedItem = listItemView.SelectedItem as ListItem;
             ListViewModel.lvm.Editing = true;
+            ListViewModel.lvm.NotEditing = false;
         }
 
         private async void Add_Clicked(object sender, EventArgs e)
@@ -69,7 +70,7 @@ namespace CleverShoppingList
                         {
                             //Archive the ListItem into an ArchivedItem.
                             decimal price = i.UseSale ? i.SalePrice : i.Price;
-                            ArchivedItem a = new ArchivedItem(t.ID, i.Name, i.Amount, price);
+                            ArchivedItem a = new ArchivedItem(t.ID, i.Name, i.Amount, price * i.Amount);
                             await TabsViewModel.tvm.Conn.InsertAsync(a);
                         //Update the foreign item with x bought and x spent.
                         var foreignList = from f in TabsViewModel.tvm.Conn.Table<Item>()
@@ -90,21 +91,43 @@ namespace CleverShoppingList
             
         }
 
-        private void StopEditing_Clicked(object sender, EventArgs e)
+        private async void StopEditing_Clicked(object sender, EventArgs e)
         {
+            await TabsViewModel.tvm.Conn.UpdateAllAsync(ListViewModel.lvm.ListItems);
             ListViewModel.lvm.Editing = false;
+            ListViewModel.lvm.NotEditing = true;
+            
+            //await ListViewModel.lvm.UpdateList();
         }
 
         private async void Stepper_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            await TabsViewModel.tvm.Conn.UpdateAsync(ListViewModel.lvm.SelectedItem);
-            await ListViewModel.lvm.UpdateList();
+            //if (ListViewModel.lvm.Editing)
+            //{
+
+            //    await TabsViewModel.tvm.Conn.UpdateAsync(ListViewModel.lvm.SelectedItem);
+            //    await ListViewModel.lvm.UpdateList();
+            //}
+
+
+
+
         }
 
         private async void Picker_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            await TabsViewModel.tvm.Conn.UpdateAsync(ListViewModel.lvm.SelectedItem);
-            await ListViewModel.lvm.UpdateList();
+            //if (ListViewModel.lvm.Editing)
+            //{
+                
+            //    await TabsViewModel.tvm.Conn.UpdateAsync(ListViewModel.lvm.SelectedItem);
+            //    await ListViewModel.lvm.UpdateList();
+            //}
+            
+        }
+
+        private void Edit_Clicked(object sender, EventArgs e)
+        {
+            
         }
     }
 }

@@ -42,12 +42,12 @@ namespace CleverShoppingList.Models
         {
 
         }
-        public ListItem(int foreignID, Priority priority, int ownerID = -1)
+        public ListItem(int foreignID, Priority priority, int ownerID = -1, int amount = 1)
         {
             this.foreignID = foreignID;
             this.priority = priority;
             this.ownerID = ownerID;
-            amount = 1;
+            this.amount = amount;
         }
 
         async public Task LinkToForeignItem()
