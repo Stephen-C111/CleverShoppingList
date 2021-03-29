@@ -20,24 +20,28 @@
 						<ViewCell>
 							<ContentView Padding="5">
 								<Frame BorderColor="#FF3838" Padding="5">
-									<StackLayout Orientation="Horizontal">
+									<StackLayout>
 										
-										<Label VerticalOptions="Center">
-											<Label.FormattedText>
-												<FormattedString>
-													<Span Text="{Binding Name}" FontSize="20" TextColor="Black"/>
-													<Span Text=" | Price: "/>
-													<Span Text="{Binding Price}"/>
-													<Span Text=" | Amount Purchased: "/>
-													<Span Text="{Binding Purchased}"/>
-													<Span Text=" | Amount Spent: "/>
-													<Span Text="{Binding TotalCost}"/>
-												</FormattedString>
-											</Label.FormattedText>
-										</Label>
-										
-										
+										<StackLayout Orientation="Horizontal">
+											<Label Text="{Binding Name}" FontSize="18" TextColor="Black" VerticalOptions="Center" WidthRequest="100"/>
+											<Label VerticalOptions="Center">
+												<Label.FormattedText>
+													<FormattedString>
+
+														<Span Text="Price: "/>
+														<Span Text="{Binding Price}"/>
+														<Span Text=" | Amount Purchased: "/>
+														<Span Text="{Binding Purchased}"/>
+														<Span Text=" | Amount Spent: "/>
+														<Span Text="{Binding TotalCost}"/>
+													</FormattedString>
+												</Label.FormattedText>
+											</Label>
+
+
+										</StackLayout>
 									</StackLayout>
+									
 
 								</Frame>
 							</ContentView>

@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+			 xmlns:data="clr-namespace:CleverShoppingList.ViewModels;assembly=CleverShoppingList"
+             x:Class="CleverShoppingList.AddEditRecipe">
+
+	<ContentPage.Resources>
+		<data:AddEditRecipeViewModel x:Key="aervm"/>
+		<Style TargetType="Button">
+			<Setter Property="TextColor" Value="White"/>
+			<Setter Property="BackgroundColor" Value="#FF3838"/>
+		</Style>
+	</ContentPage.Resources>
+	
+    <ContentPage.Content>
+        <StackLayout BindingContext="{StaticResource aervm}">
+            <Label Text="Add Recipe" FontSize="20"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+			<StackLayout Orientation="Horizontal" Padding="10, 0">
+				<Label Text="Recipe Name: " VerticalOptions="Center"/>
+				<Entry Text="{Binding CurrentRecipe.Name}" WidthRequest="250"/>
+			</StackLayout>
+
+			<BoxView Color="#FF3838" HeightRequest="2"/>
+
+			<!-- ingredients list-->
+			<ListView ItemsSource="{Binding Ingredients}">
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<ContentView Padding="5">
+								<Frame BorderColor="#FF3838" Padding="5">
+									<StackLayout>
+										<StackLayout Orientation="Horizontal" >
+											<Label TextColor="Black" FontSize="18" Text="{Binding Name}" WidthRequest="100" MinimumWidthRequest="10" VerticalOptions="Center"/>
+
+											<Label VerticalOptions="Center">
+												<Label.FormattedText>
+													<FormattedString>
+														<Span Text="  Amount: "/>
+														<Span Text="{Binding Amount}"/>
+														<Span Text=" | Price: "/>
+														<Span Text="{Binding Price}"/>
+													</FormattedString>
+												</Label.FormattedText>
+											</Label>
+
+										</StackLayout>
+									</StackLayout>
+
+
+								</Frame>
+							</ContentView>
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+
+			<BoxView Color="#FF3838" HeightRequest="2"/>
+			<!-- Add Items -->
+
+			<StackLayout BindingContext="{StaticResource aervm}">
+				<Label Text="Add Ingredients" FontSize="20" VerticalOptions="Center" HorizontalOptions="Center"/>
+				<StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+					<Label Text="Name: " VerticalOptions="Center"/>
+					<Entry Text="{Binding NewItemName}" WidthRequest="200"/>
+				</StackLayout>
+				<StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+					<Label Text="Price: " VerticalOptions="Center"/>
+					<Entry Text="{Binding NewItemPrice}" Keyboard="Numeric" WidthRequest="80"/>
+				</StackLayout>
+				<Button Text="Create New Item" Clicked="NewItem_Clicked" HorizontalOptions="Center"/>
+			</StackLayout>
+
+			<BoxView Color="#FF3838" HeightRequest="2" Margin="80, 0"/>
+			
+			<BoxView Color="#FF3838" HeightRequest="2"/>
+
+			<StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="0, 10">
+				<Button Text="Cancel"/>
+				<Button Text="Save" Clicked="Save_Clicked"/>
+			</StackLayout>
+
+		</StackLayout>
+    </ContentPage.Content>
+</ContentPage>

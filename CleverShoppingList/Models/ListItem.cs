@@ -20,6 +20,7 @@ namespace CleverShoppingList.Models
         bool check;
         int amount; 
         decimal price;
+        string recipeName;
         
         
 
@@ -32,6 +33,8 @@ namespace CleverShoppingList.Models
         public Priority Priority { get => priority; set { SetProperty(ref priority, value); } }
         public bool Check { get => check; set { SetProperty(ref check, value); TabsViewModel.tvm.Conn.UpdateAsync(this); ListViewModel.lvm.CountPrices(); } }
         public int Amount { get => amount; set { SetProperty(ref amount, value); } }
+        public string RecipeName { get => recipeName; set { SetProperty(ref recipeName, value); } }
+        public bool HasRecipe { get => ownerID == -1 ? false : true; }
         
 
         //ListItems require the foreignID for an item in Items to reference from, as well as a priority. 

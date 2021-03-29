@@ -14,9 +14,9 @@
 
 			<Label Padding="5" FontSize="20" Text="Your Most Expensive Items" HorizontalOptions="CenterAndExpand"/>
 			<Button Text="View Your Items" WidthRequest="200" HorizontalOptions="Center"/>
-			<ScrollView>
-				<Label Text="Items sorted by expense will go here" HorizontalOptions="Center"/>
-			</ScrollView>
+			<ListView>
+				
+			</ListView>
 			<BoxView Color="#FF3838" HeightRequest="2" VerticalOptions="End"/>
 		</StackLayout>
     </ContentPage.Content>

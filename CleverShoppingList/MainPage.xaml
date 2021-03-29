@@ -20,24 +20,35 @@
 					<ViewCell>
 						<ContentView Padding="5">
 							<Frame BorderColor="#FF3838" Padding="5">
-								<StackLayout Orientation="Horizontal" >
-									<CheckBox IsChecked="{Binding Check, Mode=TwoWay}" />
-									<Label TextColor="Black" FontSize="18" Text="{Binding Name}" WidthRequest="100" MinimumWidthRequest="10" VerticalOptions="Center"/>
-									
-									<Label VerticalOptions="Center">
+								<StackLayout>
+									<Label IsVisible="{Binding HasRecipe}">
 										<Label.FormattedText>
 											<FormattedString>
-												<Span Text="  Amount: "/>
-												<Span Text="{Binding Amount}"/>
-												<Span Text=" | Price: "/>
-												<Span Text="{Binding Price}"/>
-												<Span Text=" | Priority: "/>
-												<Span Text="{Binding Priority}"/>
+												<Span Text="Recipe: "/>
+												<Span Text="{Binding}"/>
 											</FormattedString>
 										</Label.FormattedText>
 									</Label>
-									
+									<StackLayout Orientation="Horizontal" >
+										<CheckBox IsChecked="{Binding Check, Mode=TwoWay}" />
+										<Label TextColor="Black" FontSize="18" Text="{Binding Name}" WidthRequest="100" MinimumWidthRequest="10" VerticalOptions="Center"/>
+
+										<Label VerticalOptions="Center">
+											<Label.FormattedText>
+												<FormattedString>
+													<Span Text="  Amount: "/>
+													<Span Text="{Binding Amount}"/>
+													<Span Text=" | Price: "/>
+													<Span Text="{Binding Price}"/>
+													<Span Text=" | Priority: "/>
+													<Span Text="{Binding Priority}"/>
+												</FormattedString>
+											</Label.FormattedText>
+										</Label>
+
+									</StackLayout>
 								</StackLayout>
+								
 								
 							</Frame>
 						</ContentView>

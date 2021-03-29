@@ -16,5 +16,10 @@ namespace CleverShoppingList
         {
             InitializeComponent();
         }
+
+        private async void Add_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new AddEditRecipe(-1)); //-1 indicates a new recipe should be created.
+        }
     }
 }

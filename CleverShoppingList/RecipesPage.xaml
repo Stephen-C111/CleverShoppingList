@@ -4,15 +4,38 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+			 xmlns:data="clr-namespace:CleverShoppingList.ViewModels;assembly=CleverShoppingList"
              x:Class="CleverShoppingList.RecipesPage">
+
+	<ContentPage.Resources>
+		<data:RecipeViewModel x:Key="rvm"/>
+	</ContentPage.Resources>
+	
     <ContentPage.Content>
-		<StackLayout>
-			<ScrollView VerticalOptions="FillAndExpand">
-				<Label Text="This is where the recipes scrollview will be." HorizontalOptions="CenterAndExpand"/>
-			</ScrollView>
+		<StackLayout BindingContext="{StaticResource rvm}">
+			<ListView ItemsSource="{Binding RecipeList}">
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<ContentView Padding="5">
+								<Frame BorderColor="#FF3838" Padding="5">
+									<StackLayout>
+
+										<StackLayout Orientation="Horizontal">
+											<Label Text="{Binding Name}" FontSize="18" TextColor="Black"/>
+
+
+										</StackLayout>
+									</StackLayout>
+								</Frame>
+							</ContentView>
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
 			<BoxView Color="#FF3838" HeightRequest="2"/>
 			<StackLayout Padding="5" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-				<Button Text="Add"></Button>
+				<Button Text="Add" Clicked="Add_Clicked"></Button>
 			</StackLayout>
 			<BoxView Color="#FF3838" HeightRequest="2" VerticalOptions="End"/>
 		</StackLayout>

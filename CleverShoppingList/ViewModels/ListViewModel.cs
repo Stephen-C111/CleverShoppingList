@@ -52,9 +52,10 @@ namespace CleverShoppingList.ViewModels
 
         public async Task UpdateList()
         {
-            
+
 
             var qlist = from x in TabsViewModel.tvm.Conn.Table<ListItem>()
+                        where x.OwnerID == -1
                        orderby x.Priority descending
                        select x;
             var list = await qlist.ToListAsync();
