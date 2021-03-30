@@ -20,6 +20,7 @@ namespace CleverShoppingList.Models
         bool check;
         int amount; 
         decimal price;
+        string name;
         string recipeName;
         
         
@@ -29,7 +30,7 @@ namespace CleverShoppingList.Models
         public int OwnerID { get => ownerID; set { SetProperty(ref ownerID, value); } }
         public int ForeignID { get => foreignID; set { SetProperty(ref foreignID, value); } }
         public decimal Price { get => price; set { SetProperty(ref price, value); } }
-        public string Name { get => foreignItem != null ? foreignItem.Name : "NULL"; }
+        public string Name { get => name; set { SetProperty(ref name, value); } }
         public Priority Priority { get => priority; set { SetProperty(ref priority, value); } }
         public bool Check { get => check; set { SetProperty(ref check, value); TabsViewModel.tvm.Conn.UpdateAsync(this); ListViewModel.lvm.CountPrices(); } }
         public int Amount { get => amount; set { SetProperty(ref amount, value); } }
@@ -68,6 +69,7 @@ namespace CleverShoppingList.Models
                     return;
                 }
                 this.Price = foreignItem.Price;
+                this.Name = foreignItem.Name;
             }
             catch
             {

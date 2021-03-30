@@ -36,11 +36,12 @@ namespace CleverShoppingList
                 Item i = new Item(AddEditRecipeViewModel.aervm.NewItemName, AddEditRecipeViewModel.aervm.NewItemPrice);
                 await TabsViewModel.tvm.Conn.InsertAsync(i);
                 ListItem li = new ListItem(i.ID, Priority.Normal, AddEditRecipeViewModel.aervm.CurrentRecipe.ID);
-                await TabsViewModel.tvm.Conn.InsertAsync(li);
                 await li.LinkToForeignItem();
+                await TabsViewModel.tvm.Conn.InsertAsync(li);
                 //Update the visuals for item list
                 ItemViewModel.ivm.UpdateItemList();
                 await AddEditRecipeViewModel.aervm.GetIngredients(AddEditRecipeViewModel.aervm.CurrentRecipe.ID);
+                
             }
         }
 

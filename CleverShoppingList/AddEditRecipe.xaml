@@ -27,6 +27,7 @@
 
 			<BoxView Color="#FF3838" HeightRequest="2"/>
 
+			<Label Text="Ingredients" HorizontalOptions="Center"/>
 			<!-- ingredients list-->
 			<ListView ItemsSource="{Binding Ingredients}">
 				<ListView.ItemTemplate>
@@ -77,7 +78,9 @@
 			</StackLayout>
 
 			<BoxView Color="#FF3838" HeightRequest="2" Margin="80, 0"/>
-			
+
+			<Button Text="Add from Items List" HorizontalOptions="Center"/>
+
 			<BoxView Color="#FF3838" HeightRequest="2"/>
 
 			<StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="0, 10">
