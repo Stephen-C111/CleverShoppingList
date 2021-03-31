@@ -13,7 +13,7 @@
 	
     <ContentPage.Content>
 		<StackLayout BindingContext="{StaticResource rvm}">
-			<ListView ItemsSource="{Binding RecipeList}">
+			<ListView x:Name="recipeListView" ItemsSource="{Binding RecipeList}"  ItemTapped="ListView_ItemTapped">
 				<ListView.ItemTemplate>
 					<DataTemplate>
 						<ViewCell>
@@ -23,7 +23,16 @@
 
 										<StackLayout Orientation="Horizontal">
 											<Label Text="{Binding Name}" FontSize="18" TextColor="Black"/>
-
+											<Label>
+												<Label.FormattedText>
+													<FormattedString>
+														<Span Text="Total Price: "/>
+														<Span Text="{Binding Price}"/>
+														<Span Text=" | Amount Purchased: "/>
+														<Span Text="{Binding Purchased}"/>
+													</FormattedString>
+												</Label.FormattedText>
+											</Label>
 
 										</StackLayout>
 									</StackLayout>
@@ -34,8 +43,17 @@
 				</ListView.ItemTemplate>
 			</ListView>
 			<BoxView Color="#FF3838" HeightRequest="2"/>
-			<StackLayout Padding="5" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+			<StackLayout Padding="5" Orientation="Horizontal" HorizontalOptions="CenterAndExpand" IsVisible="{Binding NotEditing}">
 				<Button Text="Add" Clicked="Add_Clicked"></Button>
+			</StackLayout>
+			<!--Editing-->
+			<StackLayout Padding="5" HorizontalOptions="Center" IsVisible="{Binding Editing}">
+				<Label Text="{Binding SelectedRecipe.Name}" TextColor="Black" FontSize="18" HorizontalOptions="Center"/>
+				<StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+					<Button Text="Cancel" Clicked="Cancel_Clicked"/>
+					<Button Text="Edit" Clicked="Edit_Clicked"/>
+					<Button Text="Add to List" Clicked="AddToList_Clicked"/>
+				</StackLayout>
 			</StackLayout>
 			<BoxView Color="#FF3838" HeightRequest="2" VerticalOptions="End"/>
 		</StackLayout>

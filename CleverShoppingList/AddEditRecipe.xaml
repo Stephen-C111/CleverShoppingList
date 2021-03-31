@@ -17,7 +17,7 @@
 	
     <ContentPage.Content>
         <StackLayout BindingContext="{StaticResource aervm}">
-            <Label Text="Add Recipe" FontSize="20"
+            <Label Text="{Binding Header}" FontSize="20"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
 			<StackLayout Orientation="Horizontal" Padding="10, 0">
@@ -27,9 +27,10 @@
 
 			<BoxView Color="#FF3838" HeightRequest="2"/>
 
-			<Label Text="Ingredients" HorizontalOptions="Center"/>
+			<Label Text="Ingredients" HorizontalOptions="Center" IsVisible="{Binding NoShowItemsList}"/>
+			<Label Text="Add Items" HorizontalOptions="Center" IsVisible="{Binding ShowItemsList}"/>
 			<!-- ingredients list-->
-			<ListView ItemsSource="{Binding Ingredients}">
+			<ListView x:Name="ingredientList" ItemTapped="ingredientList_ItemTapped" ItemsSource="{Binding Ingredients}" IsVisible="{Binding NoShowItemsList}">
 				<ListView.ItemTemplate>
 					<DataTemplate>
 						<ViewCell>
@@ -60,32 +61,76 @@
 					</DataTemplate>
 				</ListView.ItemTemplate>
 			</ListView>
+			<!-- Items List -->
 
+			<ListView x:Name="itemView" ItemTapped="itemView_ItemTapped" ItemsSource="{Binding ItemList}" HasUnevenRows="True" SelectionMode="Single" IsVisible="{Binding ShowItemsList}">
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<ContentView Padding="5">
+								<Frame BorderColor="#FF3838" Padding="5">
+									<StackLayout Orientation="Horizontal">
+										<CheckBox x:Name="itemCheck" InputTransparent="True" IsChecked="{Binding Selected}"/>
+										<Label VerticalOptions="Center">
+											<Label.FormattedText>
+												<FormattedString>
+													<Span Text="{Binding Name}"/>
+													<Span Text=" | Amount Purchased: "/>
+													<Span Text="{Binding Purchased}"/>
+													<Span Text=" | Amount Spent: "/>
+													<Span Text="{Binding TotalCost}"/>
+												</FormattedString>
+											</Label.FormattedText>
+										</Label>
+									</StackLayout>
+								</Frame>
+							</ContentView>
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+			
+			<!-- Edit Ingredient -->
+			<StackLayout IsVisible="{Binding Editing}">
+				<BoxView Color="#FF3838" HeightRequest="2"/>
+				<Label Text="{Binding SelectedIngredient.Name}" HorizontalOptions="Center" TextColor="Black" FontSize="18"/>
+				<StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+					<Label Text="Amount: " VerticalOptions="Center"/>
+					<Label Text="{Binding SelectedIngredient.Amount, Mode=OneWay}" VerticalOptions="Center" FontSize="20"/>
+					<Stepper Value="{Binding SelectedIngredient.Amount, Mode=TwoWay}" />
+				</StackLayout>
+				<StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+					<Button Text="Delete" Clicked="Delete_Clicked"/>
+					<Button Text="Finish Editing" Clicked="FinishEdit_Clicked"/>
+				</StackLayout>
+			</StackLayout>
+			
 			<BoxView Color="#FF3838" HeightRequest="2"/>
 			<!-- Add Items -->
 
-			<StackLayout BindingContext="{StaticResource aervm}">
+			<StackLayout BindingContext="{StaticResource aervm}" IsVisible="{Binding NoShowItemsList}">
 				<Label Text="Add Ingredients" FontSize="20" VerticalOptions="Center" HorizontalOptions="Center"/>
 				<StackLayout Orientation="Horizontal" HorizontalOptions="Center">
 					<Label Text="Name: " VerticalOptions="Center"/>
-					<Entry Text="{Binding NewItemName}" WidthRequest="200"/>
+					<Entry Text="{Binding NewItemName}" WidthRequest="150"/>
+					<Label Text="Price: " VerticalOptions="Center"/>
+					<Entry Text="{Binding NewItemPrice}" Keyboard="Numeric" WidthRequest="60"/>
 				</StackLayout>
 				<StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-					<Label Text="Price: " VerticalOptions="Center"/>
-					<Entry Text="{Binding NewItemPrice}" Keyboard="Numeric" WidthRequest="80"/>
+					
 				</StackLayout>
 				<Button Text="Create New Item" Clicked="NewItem_Clicked" HorizontalOptions="Center"/>
 			</StackLayout>
 
-			<BoxView Color="#FF3838" HeightRequest="2" Margin="80, 0"/>
+			<BoxView Color="#FF3838" HeightRequest="2" Margin="80, 0" IsVisible="{Binding NoShowItemsList}"/>
 
-			<Button Text="Add from Items List" HorizontalOptions="Center"/>
+			<Button Text="Add from Items List" HorizontalOptions="Center" Clicked="AddFromList_Clicked" IsVisible="{Binding NoShowItemsList}"/>
+			<Button Text="Add Selected Items" HorizontalOptions="Center" Clicked="AddChoices_Clicked" IsVisible="{Binding ShowItemsList}"/>
 
 			<BoxView Color="#FF3838" HeightRequest="2"/>
 
-			<StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="0, 10">
-				<Button Text="Cancel"/>
-				<Button Text="Save" Clicked="Save_Clicked"/>
+			<StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="0, 10" IsVisible="{Binding NoShowItemsList}">
+				<Button Text="Save" Clicked="Finished_Clicked"/>
 			</StackLayout>
 
 		</StackLayout>

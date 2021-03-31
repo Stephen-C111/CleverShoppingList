@@ -17,9 +17,14 @@ namespace CleverShoppingList.ViewModels
         public static RecipeViewModel rvm;
 
         ObservableCollection<Recipe> recipeList = new ObservableCollection<Recipe>();
-
+        bool editing;
+        bool notEditing = true;
+        Recipe selectedRecipe;
 
         public ObservableCollection<Recipe> RecipeList { get => recipeList; set { SetProperty(ref recipeList, value); } }
+        public bool Editing { get => editing; set { SetProperty(ref editing, value); } }
+        public bool NotEditing { get => notEditing; set { SetProperty(ref notEditing, value); } }
+        public Recipe SelectedRecipe { get => selectedRecipe; set { SetProperty(ref selectedRecipe, value); } }
 
         public RecipeViewModel()
         {
