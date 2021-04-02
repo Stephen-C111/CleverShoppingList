@@ -14,6 +14,9 @@ namespace CleverShoppingList
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RecipesPage : ContentPage
     {
+
+        bool lockAdd = false;
+
         public RecipesPage()
         {
             InitializeComponent();
@@ -45,9 +48,33 @@ namespace CleverShoppingList
             RecipeViewModel.rvm.NotEditing = true;
         }
 
-        private void AddToList_Clicked(object sender, EventArgs e)
+        private async void AddToList_Clicked(object sender, EventArgs e)
         {
+            if (lockAdd) //prevent the user from spamming the "add to list" button
+            {
+                return;
+            }
+            lockAdd = true;
+            //Query purpose: Get every ListItem whose OwnerID links to the currently selected recipe.
+            var query = from x in TabsViewModel.tvm.Conn.Table<ListItem>()
+                        where x.OwnerID == RecipeViewModel.rvm.SelectedRecipe.ID
+                        select x;
+            var list = await query.ToListAsync();
+            foreach (ListItem li in list)
+            {
+                //Create a new ListItem that is intended to store the name of the recipe it was created from. 
+                ListItem newLi = new ListItem(li.ForeignID, Priority.Normal, -1, li.Amount, RecipeViewModel.rvm.SelectedRecipe.Name);
 
+                await TabsViewModel.tvm.Conn.InsertAsync(newLi);
+            }
+            //Update the number of times this recipe has been added to the shopping list, which is used in sorting.
+            RecipeViewModel.rvm.SelectedRecipe.Purchased++;
+            //Update the recipe to save the new Purchased value.
+            await TabsViewModel.tvm.Conn.UpdateAsync(RecipeViewModel.rvm.SelectedRecipe);
+            //Ensure that the shopping list updates to show the new ListItems.
+            await ListViewModel.lvm.UpdateList();
+            await DisplayAlert("Recipe Added.", "Your recipe has been added to the shopping list.", "OK");
+            lockAdd = false;
         }
     }
 }

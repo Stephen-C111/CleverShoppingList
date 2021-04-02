@@ -76,6 +76,7 @@ namespace CleverShoppingList
                     {
                         if (i.Check)
                         {
+                        i.Check = false;
                             //Archive the ListItem into an ArchivedItem.
                             decimal price = i.Price;
                             ArchivedItem a = new ArchivedItem(t.ID, i.Name, i.Amount, price * i.Amount);

@@ -18,10 +18,11 @@ namespace CleverShoppingList.Models
         Item foreignItem; //This will be populated using the foreignID
         Priority priority;
         bool check;
-        int amount; 
+        int amount = 1; 
         decimal price;
         string name;
         string recipeName;
+        bool hasRecipe;
         
         
 
@@ -32,10 +33,10 @@ namespace CleverShoppingList.Models
         public decimal Price { get => price; set { SetProperty(ref price, value); } }
         public string Name { get => name; set { SetProperty(ref name, value); } }
         public Priority Priority { get => priority; set { SetProperty(ref priority, value); } }
-        public bool Check { get => check; set { SetProperty(ref check, value); TabsViewModel.tvm.Conn.UpdateAsync(this); ListViewModel.lvm.CountPrices(); } }
-        public int Amount { get => amount; set { SetProperty(ref amount, value); } }
+        public bool Check { get => check; set { SetProperty(ref check, value); TabsViewModel.tvm.Conn.UpdateAsync(this); ListViewModel.lvm.CountPrices(); } } //Checking off an item requires an immediate data save.
+        public int Amount { get => amount; set { if (value == 0) { return; } SetProperty(ref amount, value); } }
         public string RecipeName { get => recipeName; set { SetProperty(ref recipeName, value); } }
-        public bool HasRecipe { get => ownerID == -1 ? false : true; }
+        public bool HasRecipe { get => hasRecipe; set { SetProperty(ref hasRecipe, value); } }
         
 
         //ListItems require the foreignID for an item in Items to reference from, as well as a priority. 
@@ -45,12 +46,17 @@ namespace CleverShoppingList.Models
         {
 
         }
-        public ListItem(int foreignID, Priority priority, int ownerID = -1, int amount = 1)
+        public ListItem(int foreignID, Priority priority, int ownerID = -1, int amount = 1, string recipeName = "")
         {
             this.ForeignID = foreignID;
             this.Priority = priority;
             this.OwnerID = ownerID;
             this.Amount = amount;
+            if (recipeName != "")
+            {
+                HasRecipe = true;
+                RecipeName = recipeName;
+            }
             
         }
 

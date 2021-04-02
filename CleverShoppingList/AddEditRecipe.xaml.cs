@@ -26,6 +26,7 @@ namespace CleverShoppingList
             else
             {
                 AddEditRecipeViewModel.aervm.CurrentRecipe = new Recipe();
+                //Add the newly created Recipe into the database file.
                 TabsViewModel.tvm.Conn.InsertAsync(AddEditRecipeViewModel.aervm.CurrentRecipe);
             }
 
@@ -57,13 +58,15 @@ namespace CleverShoppingList
 
         private async void Finished_Clicked(object sender, EventArgs e)
         {
-            decimal price = 0;
+            decimal price = 0; //Tallies price of ingredients.
             foreach (ListItem x in AddEditRecipeViewModel.aervm.Ingredients)
             {
                 price += x.Price * x.Amount;
             }
             AddEditRecipeViewModel.aervm.CurrentRecipe.Price = price;
+            //Update the recipe to reflect the price of ingredients.
             await TabsViewModel.tvm.Conn.UpdateAsync(AddEditRecipeViewModel.aervm.CurrentRecipe);
+            //Update the recipe list to ensure they're all displayed correctly.
             await RecipeViewModel.rvm.UpdateList();
             await Navigation.PopModalAsync();
         }
@@ -81,8 +84,11 @@ namespace CleverShoppingList
             {
                 if (x.Selected)
                 {
+                    //Create a new listitem with ownerID = to this recipe's ID. 
                     ListItem li = new ListItem(x.ID, Priority.Normal, AddEditRecipeViewModel.aervm.CurrentRecipe.ID);
+                    //Get information about name and price from the Items list.
                     await li.LinkToForeignItem();
+                    //Save the new listitem.
                     await TabsViewModel.tvm.Conn.InsertAsync(li);
                 }
                 x.Selected = false;
@@ -114,7 +120,7 @@ namespace CleverShoppingList
             }
         }
 
-        private void FinishEdit_Clicked(object sender, EventArgs e)
+        private void FinishEdit_Clicked(object sender, EventArgs e) //This button refers to the "Finish Editing" button when editing ingredients
         {
             TabsViewModel.tvm.Conn.UpdateAllAsync(AddEditRecipeViewModel.aervm.Ingredients);
             AddEditRecipeViewModel.aervm.Editing = false;

@@ -30,7 +30,7 @@ namespace CleverShoppingList.ViewModels
             path = System.IO.Path.Combine(path, "CleverListDB.db3");
             conn = new SQLiteAsyncConnection(path);
 
-            //Create tables
+            //Create tables if non-existant
             await Conn.RunInTransactionAsync(conn =>
             {
                 conn.CreateTable<Item>();

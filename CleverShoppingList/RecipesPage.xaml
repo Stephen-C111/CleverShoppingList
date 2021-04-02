@@ -13,7 +13,7 @@
 	
     <ContentPage.Content>
 		<StackLayout BindingContext="{StaticResource rvm}">
-			<ListView x:Name="recipeListView" ItemsSource="{Binding RecipeList}"  ItemTapped="ListView_ItemTapped">
+			<ListView x:Name="recipeListView" ItemsSource="{Binding RecipeList}"  ItemTapped="ListView_ItemTapped" HasUnevenRows="True">
 				<ListView.ItemTemplate>
 					<DataTemplate>
 						<ViewCell>
@@ -22,13 +22,13 @@
 									<StackLayout>
 
 										<StackLayout Orientation="Horizontal">
-											<Label Text="{Binding Name}" FontSize="18" TextColor="Black"/>
-											<Label>
+											<Label Text="{Binding Name}" FontSize="18" TextColor="Black" VerticalOptions="Center" WidthRequest="150"/>
+											<Label VerticalOptions="Center">
 												<Label.FormattedText>
 													<FormattedString>
 														<Span Text="Total Price: "/>
 														<Span Text="{Binding Price}"/>
-														<Span Text=" | Amount Purchased: "/>
+														<Span Text=" | Times added to list: "/>
 														<Span Text="{Binding Purchased}"/>
 													</FormattedString>
 												</Label.FormattedText>

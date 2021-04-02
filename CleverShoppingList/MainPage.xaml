@@ -25,7 +25,7 @@
 										<Label.FormattedText>
 											<FormattedString>
 												<Span Text="Recipe: "/>
-												<Span Text="{Binding}"/>
+												<Span Text="{Binding RecipeName}"/>
 											</FormattedString>
 										</Label.FormattedText>
 									</Label>
@@ -64,7 +64,7 @@
 				<StackLayout Orientation="Horizontal">
 					<Label Text="Amount: " VerticalOptions="Center"/>
 					<Label Text="{Binding SelectedItem.Amount, Mode=OneWay}" VerticalOptions="Center" FontSize="20"/>
-					<Stepper Value="{Binding SelectedItem.Amount, Mode=TwoWay}"  ValueChanged="Stepper_PropertyChanged"/>
+					<Stepper Value="{Binding SelectedItem.Amount, Mode=TwoWay}" Minimum="1" ValueChanged="Stepper_PropertyChanged"/>
 				</StackLayout>
 				<StackLayout Orientation="Horizontal">
 					<Label Text="Priority: " VerticalOptions="Center"/>
