@@ -26,10 +26,7 @@ namespace CleverShoppingList
             ItemViewModel.ivm.NotEditing = false;
         }
 
-        private void Cancel_Clicked(object sender, EventArgs e)
-        {
-
-        }
+        
 
         private async void Delete_Clicked(object sender, EventArgs e)
         {
@@ -69,6 +66,12 @@ namespace CleverShoppingList
                 ItemViewModel.ivm.UpdateItemList();
             }
             
+        }
+
+        private void Cancel_Clicked(object sender, EventArgs e)
+        {
+            ItemViewModel.ivm.Adding = false;
+            ItemViewModel.ivm.NotAdding = true;
         }
     }
 }

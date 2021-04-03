@@ -83,8 +83,12 @@
 				<StackLayout IsVisible="{Binding NotEditing}">
 					<Button Text="Add" HorizontalOptions="Center" Clicked="AddNewItem_Clicked" IsVisible="{Binding NotAdding}"></Button>
 				</StackLayout>
+				<StackLayout Orientation="Horizontal" IsVisible="{Binding Adding}" HorizontalOptions="Center">
+					<Button Text="Cancel" HorizontalOptions="Center" Clicked="Cancel_Clicked"/>
+					<Button Text="Save" HorizontalOptions="Center" Clicked="SaveNewItem_Clicked"/>
+				</StackLayout>
 				
-				<Button Text="Save" HorizontalOptions="Center" Clicked="SaveNewItem_Clicked" IsVisible="{Binding Adding}"/>
+				
 			</StackLayout>
 			<BoxView Color="#FF3838" HeightRequest="2" VerticalOptions="End"/>
 		</StackLayout>

@@ -10,7 +10,7 @@ namespace CleverShoppingList.Models
 {
     public enum Priority { Low, Normal, High, Urgent }
     [Table("ListItems")]
-    class ListItem : ViewModelBase
+    public class ListItem : ViewModelBase
     {
         int id;
         int ownerID = -1; //refers to a recipe that contains this listitem. If it is part of the main shopping list, its ID will = -1
