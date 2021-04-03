@@ -53,7 +53,7 @@ namespace CleverShoppingList.ViewModels
         public async Task UpdateList()
         {
             //Retrieve ListItem properties.
-            List<ListItem> list = await TabsViewModel.tvm.Conn.QueryAsync<ListItem>("SELECT ID, Name, Price, Priority, ForeignID, OwnerID, Amount, RecipeName, HasRecipe, InCart FROM ListItems");
+            List<ListItem> list = await TabsViewModel.tvm.Conn.QueryAsync<ListItem>("SELECT ID, Name, Price, Priority, ForeignID, OwnerID, Amount, RecipeName, HasRecipe, InCart FROM ListItems WHERE OwnerID = -1 ORDER BY Priority DESC, Name");
 
             ListItems = new ObservableCollection<ListItem>(list);
 
