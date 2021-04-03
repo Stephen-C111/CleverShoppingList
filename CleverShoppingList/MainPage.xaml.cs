@@ -76,9 +76,9 @@ namespace CleverShoppingList
                     await TabsViewModel.tvm.Conn.InsertAsync(t);
                     foreach (ListItem i in ListViewModel.lvm.ListItems)
                     {
-                        if (i.Check)
+                        if (i.Selected)
                         {
-                        i.Check = false;
+                        i.Selected = false;
                             //Archive the ListItem into an ArchivedItem.
                             decimal price = i.Price;
                             ArchivedItem a = new ArchivedItem(t.ID, i.Name, i.Amount, price * i.Amount);

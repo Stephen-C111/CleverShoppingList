@@ -53,7 +53,7 @@ namespace CleverShoppingList.ViewModels
         public async Task UpdateList()
         {
 
-
+            List<ListItem> list = await TabsViewModel.tvm.Conn.QueryAsync<ListItem>("SELECT ID, Name, Price, Priority, ForeignID, OwnerID, Amount, RecipeName, HasRecipe FROM ListItems");
             //var qlist = from x in TabsViewModel.tvm.Conn.Table<ListItem>()
             //            where x.OwnerID == -1
             //            orderby x.Priority descending
@@ -62,10 +62,12 @@ namespace CleverShoppingList.ViewModels
 
             //            }
 
-            List<ListItem> list = await TabsViewModel.tvm.Conn.Table<ListItem>()
-                .Where(i => i.OwnerID == -1)
-                .OrderByDescending(i => i.Priority)
-                .ThenBy(i => i.Name).ToListAsync();
+
+
+            //List<ListItem> list = await TabsViewModel.tvm.Conn.Table<ListItem>()
+            //    .Where(i => i.OwnerID == -1)
+            //    .OrderByDescending(i => i.Priority)
+            //    .ThenBy(i => i.Name).ToListAsync();
 
             //foreach (ListItem li in list)
             //{
@@ -88,7 +90,7 @@ namespace CleverShoppingList.ViewModels
             foreach (ListItem i in ListItems)
             {
 
-                if (i.Check)
+                if (i.Selected)
                 {
                     total += i.Price * i.Amount;
                     amount += i.Amount;

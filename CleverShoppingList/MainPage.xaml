@@ -30,7 +30,7 @@
 										</Label.FormattedText>
 									</Label>
 									<StackLayout Orientation="Horizontal" >
-										<CheckBox IsChecked="{Binding Check, Mode=TwoWay}" />
+										<CheckBox IsChecked="{Binding Selected, Mode=TwoWay}" />
 										<Label TextColor="Black" FontSize="18" Text="{Binding Name}" WidthRequest="100" MinimumWidthRequest="10" VerticalOptions="Center"/>
 
 										<Label VerticalOptions="Center">
