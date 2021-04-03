@@ -52,29 +52,10 @@ namespace CleverShoppingList.ViewModels
 
         public async Task UpdateList()
         {
+            //Retrieve ListItem properties.
+            List<ListItem> list = await TabsViewModel.tvm.Conn.QueryAsync<ListItem>("SELECT ID, Name, Price, Priority, ForeignID, OwnerID, Amount, RecipeName, HasRecipe, InCart FROM ListItems");
 
-            List<ListItem> list = await TabsViewModel.tvm.Conn.QueryAsync<ListItem>("SELECT ID, Name, Price, Priority, ForeignID, OwnerID, Amount, RecipeName, HasRecipe FROM ListItems");
-            //var qlist = from x in TabsViewModel.tvm.Conn.Table<ListItem>()
-            //            where x.OwnerID == -1
-            //            orderby x.Priority descending
-            //            select new ListItem()
-            //            {
-
-            //            }
-
-
-
-            //List<ListItem> list = await TabsViewModel.tvm.Conn.Table<ListItem>()
-            //    .Where(i => i.OwnerID == -1)
-            //    .OrderByDescending(i => i.Priority)
-            //    .ThenBy(i => i.Name).ToListAsync();
-
-            //foreach (ListItem li in list)
-            //{
-            //    await li.LinkToForeignItem();
-            //}
-
-            ListItems =  new ObservableCollection<ListItem>(list);
+            ListItems = new ObservableCollection<ListItem>(list);
 
             CountPrices();
         }
@@ -90,7 +71,7 @@ namespace CleverShoppingList.ViewModels
             foreach (ListItem i in ListItems)
             {
 
-                if (i.Selected)
+                if (i.InCart)
                 {
                     total += i.Price * i.Amount;
                     amount += i.Amount;
