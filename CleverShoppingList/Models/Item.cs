@@ -31,6 +31,7 @@ namespace CleverShoppingList.Models
         {
             this.name = name;
             this.price = price;
+
         }
     }
 }

@@ -18,7 +18,7 @@ namespace CleverShoppingList.Models
         Item foreignItem; //This will be populated using the foreignID
         Priority priority;
         bool check;
-        int amount = 1; 
+        int amount; 
         decimal price;
         string name;
         string recipeName;
@@ -44,7 +44,7 @@ namespace CleverShoppingList.Models
         //of a recipe.
         public ListItem()
         {
-
+            
         }
         public ListItem(int foreignID, Priority priority, int ownerID = -1, int amount = 1, string recipeName = "")
         {
@@ -57,7 +57,7 @@ namespace CleverShoppingList.Models
                 HasRecipe = true;
                 RecipeName = recipeName;
             }
-            
+            Task.Run(() => LinkToForeignItem()).Wait();
         }
 
         async public Task LinkToForeignItem()

@@ -54,20 +54,24 @@ namespace CleverShoppingList.ViewModels
         {
 
 
-            // var qlist = from x in TabsViewModel.tvm.Conn.Table<ListItem>()
-            //where x.OwnerID == -1
-            //orderby x.Priority descending
-            //select x;
+            //var qlist = from x in TabsViewModel.tvm.Conn.Table<ListItem>()
+            //            where x.OwnerID == -1
+            //            orderby x.Priority descending
+            //            select new ListItem()
+            //            {
 
-            var list = await TabsViewModel.tvm.Conn.Table<ListItem>()
+            //            }
+
+            List<ListItem> list = await TabsViewModel.tvm.Conn.Table<ListItem>()
                 .Where(i => i.OwnerID == -1)
                 .OrderByDescending(i => i.Priority)
                 .ThenBy(i => i.Name).ToListAsync();
 
-            foreach (ListItem li in list)
-            {
-                await li.LinkToForeignItem();
-            }
+            //foreach (ListItem li in list)
+            //{
+            //    await li.LinkToForeignItem();
+            //}
+
             ListItems =  new ObservableCollection<ListItem>(list);
 
             CountPrices();

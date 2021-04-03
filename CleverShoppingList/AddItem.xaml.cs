@@ -14,9 +14,11 @@ namespace CleverShoppingList
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AddItem : ContentPage
     {
+        
         public AddItem()
         {
             InitializeComponent();
+            
         }
 
         private async void Create_Clicked(object sender, EventArgs e)
@@ -58,7 +60,7 @@ namespace CleverShoppingList
                     }
                 }
                 await ListViewModel.lvm.UpdateList();
-                ItemViewModel.ivm.UpdateItemList();
+                
                 await Navigation.PopModalAsync();
             }
         }

@@ -45,7 +45,7 @@ namespace CleverShoppingList.ViewModels
 
         public async void UpdateItemList()
         {
-            var list = await TabsViewModel.tvm.Conn.Table<Item>().ToListAsync();
+            List<Item> list = await TabsViewModel.tvm.Conn.Table<Item>().ToListAsync();
             
             ItemList = new ObservableCollection<Item>(list);
         }

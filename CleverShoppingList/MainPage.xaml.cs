@@ -16,11 +16,13 @@ namespace CleverShoppingList
     public partial class MainPage : ContentPage
     {
         public static MainPage mp;
+        Random r;
 
         public MainPage()
         {
             mp = this;
             InitializeComponent();
+            r = new Random();
         }
 
         private void listItemView_ItemTapped(object sender, ItemTappedEventArgs e)
@@ -134,6 +136,17 @@ namespace CleverShoppingList
             
         }
 
-        
+        private async void DebugAdd_Clicked(object sender, EventArgs e)
+        {
+            //This is debugging code made to help test adding items in rapid succession, or large groups.
+            Item i = new Item("Test Item " + r.Next(50, 1000), 4.99m);
+            await TabsViewModel.tvm.Conn.InsertAsync(i);
+            ListItem li = new ListItem(i.ID, Priority.Low, -1, r.Next(2, 11));
+            await TabsViewModel.tvm.Conn.InsertAsync(li);
+            //Update the visuals for both lists
+            await ListViewModel.lvm.UpdateList();
+            ItemViewModel.ivm.UpdateItemList();
+            
+        }
     }
 }
