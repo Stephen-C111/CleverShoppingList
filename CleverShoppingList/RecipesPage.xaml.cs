@@ -76,5 +76,14 @@ namespace CleverShoppingList
             await DisplayAlert("Recipe Added.", "Your recipe has been added to the shopping list.", "OK");
             lockAdd = false;
         }
+
+        private async void Delete_Clicked(object sender, EventArgs e)
+        {
+            if (await DisplayAlert("Delete Recipe?", "Delete " + RecipeViewModel.rvm.SelectedRecipe.Name + "? This data cannot be recovered once deleted.", "Yes", "No"))
+            {
+                await TabsViewModel.tvm.Conn.DeleteAsync(RecipeViewModel.rvm.SelectedRecipe);
+                await RecipeViewModel.rvm.UpdateList();
+            }
+        }
     }
 }

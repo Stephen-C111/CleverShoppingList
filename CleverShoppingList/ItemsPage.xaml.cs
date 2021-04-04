@@ -36,8 +36,15 @@ namespace CleverShoppingList
                 ItemViewModel.ivm.Editing = false;
                 ItemViewModel.ivm.NotEditing = true;
                 ItemViewModel.ivm.UpdateItemList();
-                //Updating twice ensures that deleted items do not appear in the program.
-                await ListViewModel.lvm.UpdateList();
+                //Return a list of EVERY ListItem, regardless of OwnerID. This allows deletion to affect ingredients as well.
+                List<ListItem> list = await TabsViewModel.tvm.Conn.QueryAsync<ListItem>("SELECT ID, Name, Price, Priority, ForeignID, OwnerID, Amount, RecipeName, HasRecipe, InCart FROM ListItems");
+                foreach (ListItem li in list)
+                {
+                    //If an item can't be found by this method, the ListItem deletes itself to prevent data corruption and app crashes.
+                    await li.LinkToForeignItem();
+                }
+                await TabsViewModel.tvm.Conn.UpdateAllAsync(list);
+                //Finally, update the lists to show accurate data.
                 await ListViewModel.lvm.UpdateList();
             }
         }

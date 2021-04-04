@@ -50,9 +50,12 @@
 			<StackLayout Padding="5" HorizontalOptions="Center" IsVisible="{Binding Editing}">
 				<Label Text="{Binding SelectedRecipe.Name}" TextColor="Black" FontSize="18" HorizontalOptions="Center"/>
 				<StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-					<Button Text="Cancel" Clicked="Cancel_Clicked"/>
 					<Button Text="Edit" Clicked="Edit_Clicked"/>
 					<Button Text="Add to List" Clicked="AddToList_Clicked"/>
+				</StackLayout>
+				<StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+					<Button Text="Cancel" Clicked="Cancel_Clicked"/>
+					<Button Text="Delete" Clicked="Delete_Clicked"/>
 				</StackLayout>
 			</StackLayout>
 			<BoxView Color="#FF3838" HeightRequest="2" VerticalOptions="End"/>

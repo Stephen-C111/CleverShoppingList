@@ -30,6 +30,8 @@ namespace CleverShoppingList
             ReportsPage reports = new ReportsPage();
             reports.Title = "Reports";
 
+            //Options page should go here with a help section.
+
             Children.Add(main);
             Children.Add(items);
             Children.Add(recipes);
