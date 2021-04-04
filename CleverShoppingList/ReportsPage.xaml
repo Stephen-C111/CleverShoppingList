@@ -4,20 +4,69 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+			 xmlns:data="clr-namespace:CleverShoppingList.ViewModels;assembly=CleverShoppingList"
              x:Class="CleverShoppingList.ReportsPage">
+
+	<ContentPage.Resources>
+		<data:ReportsViewModel x:Key="rpvm"/>
+	</ContentPage.Resources>
+	
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout BindingContext="{StaticResource rpvm}">
 			<Label Padding="5" FontSize="20"  Text="This Month's Expenditure: $0" HorizontalOptions="CenterAndExpand"/>
 			<Label Padding="5" FontSize="20"  Text="Compared to last month: $0" HorizontalOptions="CenterAndExpand"/>
-			<Button Text="View Monthly Spending" WidthRequest="200" HorizontalOptions="Center"/>
+
 			<BoxView Color="#FF3838" HeightRequest="2"/>
 
-			<Label Padding="5" FontSize="20" Text="Your Most Expensive Items" HorizontalOptions="CenterAndExpand"/>
-			<Button Text="View Your Items" WidthRequest="200" HorizontalOptions="Center"/>
-			<ListView>
+			
+			
+
+			<Label Padding="5" FontSize="20" Text="Pick an Option" HorizontalOptions="CenterAndExpand" IsVisible="{Binding SelectOption}"/>
+			<Label Padding="5" FontSize="20" Text="Your Most Expensive Items" HorizontalOptions="CenterAndExpand" IsVisible="{Binding ExpensiveItems}"/>
+			<Label Padding="5" FontSize="20" Text="Your Monthly Spending" HorizontalOptions="CenterAndExpand" IsVisible="{Binding MonthlySpending}"/>
+			
+			<ListView IsVisible="{Binding ExpensiveItems}" ItemsSource="{Binding ItemList}" HasUnevenRows="True">
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<ContentView Padding="5">
+								<Frame BorderColor="#FF3838" Padding="5">
+									<StackLayout>
+										<StackLayout Orientation="Horizontal">
+											<Label Text="{Binding Name}" FontSize="18" TextColor="Black" VerticalOptions="Center" WidthRequest="100"/>
+											<Label VerticalOptions="Center">
+												<Label.FormattedText>
+													<FormattedString>
+														<Span Text="Price: "/>
+														<Span Text="{Binding Price}"/>
+														<Span Text=" | Amount Purchased: "/>
+														<Span Text="{Binding Purchased}"/>
+														<Span Text=" | Amount Spent: "/>
+														<Span Text="{Binding TotalCost}"/>
+													</FormattedString>
+												</Label.FormattedText>
+											</Label>
+										</StackLayout>
+									</StackLayout>
+								</Frame>
+							</ContentView>
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+
+			<ListView HasUnevenRows="True" IsVisible="{Binding MonthlySpending}">
 				
 			</ListView>
-			<BoxView Color="#FF3838" HeightRequest="2" VerticalOptions="End"/>
+
+			<StackLayout VerticalOptions="EndAndExpand">
+				<BoxView Color="#FF3838" HeightRequest="2"/>
+				<StackLayout Orientation="Vertical" Padding="5" HorizontalOptions="Center">
+					<Button Text="View Your Most Expensive Items" Clicked="ExpensiveItems_Clicked"  HorizontalOptions="Center"/>
+					<Button Text="View Your Monthly Spending" Clicked="Monthly_Spending_Clicked" HorizontalOptions="Center"/>
+				</StackLayout>
+				<BoxView Color="#FF3838" HeightRequest="2"/>
+			</StackLayout>
 		</StackLayout>
     </ContentPage.Content>
 </ContentPage>
