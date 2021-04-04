@@ -36,17 +36,6 @@ namespace CleverShoppingList
         private async void Add_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushModalAsync(new AddItem());
-
-            //Random r = new Random();
-            ////Create test items
-            //    Item i = new Item("test item" + r.Next(1, 999), 4.99m);
-            //    await TabsViewModel.tvm.Conn.InsertAsync(i);
-            //    
-            //    ListItem li = new ListItem(i.ID, Priority.High, -1);
-            //    await TabsViewModel.tvm.Conn.InsertAsync(li);
-            ////Update the visuals for both lists
-            //await ListViewModel.lvm.UpdateList();
-            //ItemViewModel.ivm.UpdateItemList();
         }
 
         private async void X_Clicked(object sender, EventArgs e)
@@ -71,18 +60,19 @@ namespace CleverShoppingList
             //Dialog confirming the user's action.
             if (await DisplayAlert("Check out?", "All checked items will be removed from the list and archived for your reports. You can re-add these items again with the drop-down menu while adding items.", "Yes", "No"))
             {
-                    ArchivedTrip t = new ArchivedTrip();
-                    //Create an ArchivedTrip and use its id to connect ArchivedItems to it.
-                    await TabsViewModel.tvm.Conn.InsertAsync(t);
-                    foreach (ListItem i in ListViewModel.lvm.ListItems)
+                ArchivedTrip t = new ArchivedTrip();
+                //Create an ArchivedTrip and use its id to connect ArchivedItems to it.
+                await TabsViewModel.tvm.Conn.InsertAsync(t);
+                foreach (ListItem i in ListViewModel.lvm.ListItems)
+                {
+                    if (i.InCart)
                     {
-                        if (i.InCart)
-                        {
                         i.InCart = false;
-                            //Archive the ListItem into an ArchivedItem.
+                       // Archive the ListItem into an ArchivedItem.
                             decimal price = i.Price;
-                            ArchivedItem a = new ArchivedItem(t.ID, i.Name, i.Amount, price * i.Amount);
-                            await TabsViewModel.tvm.Conn.InsertAsync(a);
+                        ArchivedItem a = new ArchivedItem(t.ID, i.Name, i.Amount, price * i.Amount);
+                        await TabsViewModel.tvm.Conn.InsertAsync(a);
+                        t.Cost += a.Price;
                         //Update the foreign item with x bought and x spent.
                         var foreignList = from f in TabsViewModel.tvm.Conn.Table<Item>()
                                           where i.ForeignID == f.ID
@@ -91,13 +81,15 @@ namespace CleverShoppingList
                         foreign.TotalCost += a.Price;
                         foreign.Purchased += a.Amount;
                         await TabsViewModel.tvm.Conn.UpdateAsync(foreign);
-                            //Delete the ListItem.
+                        //Delete the ListItem.
                             await TabsViewModel.tvm.Conn.DeleteAsync(i);
-                        }
                     }
-                    //update the visuals for both lists.
-                    await ListViewModel.lvm.UpdateList();
-                    ItemViewModel.ivm.UpdateItemList();
+                }
+                await TabsViewModel.tvm.Conn.UpdateAsync(t);
+                //update the visuals for both lists.
+
+                await ListViewModel.lvm.UpdateList();
+                ItemViewModel.ivm.UpdateItemList();
             }
             
         }

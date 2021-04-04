@@ -13,8 +13,22 @@
 	
     <ContentPage.Content>
         <StackLayout BindingContext="{StaticResource rpvm}">
-			<Label Padding="5" FontSize="20"  Text="This Month's Expenditure: $0" HorizontalOptions="CenterAndExpand"/>
-			<Label Padding="5" FontSize="20"  Text="Compared to last month: $0" HorizontalOptions="CenterAndExpand"/>
+			<Label Padding="5" FontSize="20" HorizontalOptions="CenterAndExpand">
+				<Label.FormattedText>
+					<FormattedString>
+						<Span Text="Current Spending this Month: "/>
+						<Span Text="{Binding Current.Spent}"/>
+					</FormattedString>
+				</Label.FormattedText>
+			</Label>
+			<Label Padding="5" FontSize="20" HorizontalOptions="CenterAndExpand">
+				<Label.FormattedText>
+					<FormattedString>
+						<Span Text="Compared to Last Month: "/>
+						<Span Text="{Binding Current.ComparedSpent}"/>
+					</FormattedString>
+				</Label.FormattedText>
+			</Label>
 
 			<BoxView Color="#FF3838" HeightRequest="2"/>
 
