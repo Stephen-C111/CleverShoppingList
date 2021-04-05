@@ -17,10 +17,15 @@ namespace CleverShoppingList.Models
         public DateTime TripDate { get => tripDate; set { SetProperty(ref tripDate, value); } }
         public decimal Cost { get => cost; set { SetProperty(ref cost, value); } }
 
-        //Like Recipes, ArchivedTrips are simple, and act as an object for ArchivedItems to group up with, and in fact require no values to be constructed.
+        //Like Recipes, ArchivedTrips are simple, and act as an object for ArchivedItems to group up with.
         public ArchivedTrip()
         {
-            TripDate = DateTime.Today;
+            //blank constructor for SQLite
+        }
+        public ArchivedTrip(DateTime date, decimal price = 0)
+        {
+            TripDate = date;
+            Cost = price; //This is for debug purposes, normal trips have their cost calculated at check-out time.
             
         }
     }

@@ -86,16 +86,55 @@ namespace CleverShoppingList.ViewModels
             
         }
 
-        public void GetSpendingForAllMonths()
+        public async Task GetSpendingForAllMonths()
         {
             //First, figure out which months are actually linked to ArchivedTrips.
-
+            var tripsList = await TabsViewModel.tvm.Conn.QueryAsync<ArchivedTrip>("SELECT ID, TripDate, Cost FROM ArchivedTrips ORDER BY TripDate");
+            List<YearMonth> uniqueMonths = new List<YearMonth>();
+            Months.Clear();
+            foreach (ArchivedTrip trip in tripsList)
+            {
+                bool unique = true;
+                YearMonth ym = new YearMonth(trip.TripDate.Year, trip.TripDate.Month);
+                foreach (YearMonth x in uniqueMonths)
+                {
+                     if (ym.year == x.year && ym.month == x.month)
+                    {
+                        unique = false;
+                    }
+                    
+                }
+                if (unique) { uniqueMonths.Add(ym); }
+            }
             //Then, for each unique month, create a SpendingMonth and add it to an observablecollection
+            foreach (YearMonth y in uniqueMonths)
+            {
+                if (Months.Count == 0)
+                {
+                    Months.Add(await ConvertTripsIntoMonth(new DateTime(y.year, y.month, 1)));
+                }
+                else
+                {
+                    Months.Add(await ConvertTripsIntoMonth(new DateTime(y.year, y.month, 1), Months[Months.Count - 1].Spent));
+                }
+                
+            }
         }
 
         public async Task GetItemsByExpense()
         {
             ItemList = new ObservableCollection<Item>(await TabsViewModel.tvm.Conn.QueryAsync<Item>("SELECT ID, Name, Price, Purchased, TotalCost FROM Items ORDER BY TotalCost DESC"));
+        }
+    }
+
+    struct YearMonth { 
+        
+        public int year; public int month;
+        
+        public YearMonth(int year, int month)
+        {
+            this.year = year;
+            this.month = month;
         }
     }
 }

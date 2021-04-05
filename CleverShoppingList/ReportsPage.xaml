@@ -39,6 +39,7 @@
 			<Label Padding="5" FontSize="20" Text="Your Most Expensive Items" HorizontalOptions="CenterAndExpand" IsVisible="{Binding ExpensiveItems}"/>
 			<Label Padding="5" FontSize="20" Text="Your Monthly Spending" HorizontalOptions="CenterAndExpand" IsVisible="{Binding MonthlySpending}"/>
 			
+			<!-- View Items by Expense -->
 			<ListView IsVisible="{Binding ExpensiveItems}" ItemsSource="{Binding ItemList}" HasUnevenRows="True">
 				<ListView.ItemTemplate>
 					<DataTemplate>
@@ -68,9 +69,34 @@
 					</DataTemplate>
 				</ListView.ItemTemplate>
 			</ListView>
-
-			<ListView HasUnevenRows="True" IsVisible="{Binding MonthlySpending}">
-				
+			
+			<!-- View Monthly Spending -->
+			<ListView HasUnevenRows="True" IsVisible="{Binding MonthlySpending}" ItemsSource="{Binding Months}">
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<ContentView Padding="5">
+								<Frame BorderColor="#FF3838" Padding="5">
+									<StackLayout>
+										<StackLayout Orientation="Horizontal">
+											<Label TextColor="Black" FontSize="18" Text="{Binding Name}" WidthRequest="100" VerticalOptions="Center"/>
+											<Label VerticalOptions="Center">
+												<Label.FormattedText>
+													<FormattedString>
+														<Span Text="Spent: "/>
+														<Span Text="{Binding Spent}"/>
+														<Span Text=" | Compared to last month: "/>
+														<Span Text="{Binding ComparedSpent}"/>
+													</FormattedString>
+												</Label.FormattedText>
+											</Label>
+										</StackLayout>
+									</StackLayout>
+								</Frame>
+							</ContentView>
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
 			</ListView>
 
 			<StackLayout VerticalOptions="EndAndExpand">
@@ -78,6 +104,7 @@
 				<StackLayout Orientation="Vertical" Padding="5" HorizontalOptions="Center">
 					<Button Text="View Your Most Expensive Items" Clicked="ExpensiveItems_Clicked"  HorizontalOptions="Center"/>
 					<Button Text="View Your Monthly Spending" Clicked="Monthly_Spending_Clicked" HorizontalOptions="Center"/>
+					<Button Text="DEBUG FILL YEAR WITH SPENDING" Clicked="DebugAddYearOfSpending_Clicked" HorizontalOptions="Center"/>
 				</StackLayout>
 				<BoxView Color="#FF3838" HeightRequest="2"/>
 			</StackLayout>

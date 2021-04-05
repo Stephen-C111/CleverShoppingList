@@ -68,7 +68,7 @@
 				</StackLayout>
 				<StackLayout Orientation="Horizontal">
 					<Label Text="Priority: " VerticalOptions="Center"/>
-					<Picker ItemsSource="{Binding PriorityList}" SelectedItem="{Binding SelectedItem.Priority}" PropertyChanged="Picker_PropertyChanged" HorizontalOptions="StartAndExpand" WidthRequest="80"/>
+					<Picker ItemsSource="{Binding PriorityList}" SelectedItem="{Binding SelectedItem.Priority}" HorizontalOptions="StartAndExpand" WidthRequest="80"/>
 					<Label Text="Price: " VerticalOptions="Center"/>
 					<Entry Text="{Binding SelectedItem.Price}" WidthRequest="60" Keyboard="Numeric"/>
 				</StackLayout>

@@ -60,7 +60,7 @@ namespace CleverShoppingList
             //Dialog confirming the user's action.
             if (await DisplayAlert("Check out?", "All checked items will be removed from the list and archived for your reports. You can re-add these items again with the drop-down menu while adding items.", "Yes", "No"))
             {
-                ArchivedTrip t = new ArchivedTrip();
+                ArchivedTrip t = new ArchivedTrip(DateTime.Today);
                 //Create an ArchivedTrip and use its id to connect ArchivedItems to it.
                 await TabsViewModel.tvm.Conn.InsertAsync(t);
                 foreach (ListItem i in ListViewModel.lvm.ListItems)
@@ -117,16 +117,7 @@ namespace CleverShoppingList
 
         }
 
-        private async void Picker_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            //if (ListViewModel.lvm.Editing)
-            //{
-                
-            //    await TabsViewModel.tvm.Conn.UpdateAsync(ListViewModel.lvm.SelectedItem);
-            //    await ListViewModel.lvm.UpdateList();
-            //}
-            
-        }
+        
 
         private async void DebugAdd_Clicked(object sender, EventArgs e)
         {

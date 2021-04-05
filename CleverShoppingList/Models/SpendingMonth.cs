@@ -21,7 +21,7 @@ namespace CleverShoppingList.Models
             this.Time = time;
             this.Spent = spent;
             this.ComparedSpent = Spent - previousSpent;
-            this.Name = Time.Year.ToString() + " " + Time.Month.ToString();
+            this.Name = Time.Year.ToString() + "-" + Time.ToString("MMM");
         }
 
     }

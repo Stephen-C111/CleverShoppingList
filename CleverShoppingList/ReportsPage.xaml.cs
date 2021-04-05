@@ -27,12 +27,22 @@ namespace CleverShoppingList
             ReportsViewModel.rpvm.SelectOption = false;
         }
 
-        private void Monthly_Spending_Clicked(object sender, EventArgs e)
+        private async void Monthly_Spending_Clicked(object sender, EventArgs e)
         {
-
+            await ReportsViewModel.rpvm.GetSpendingForAllMonths();
             ReportsViewModel.rpvm.ExpensiveItems = false;
             ReportsViewModel.rpvm.MonthlySpending = true;
             ReportsViewModel.rpvm.SelectOption = false;
+        }
+
+        private async void DebugAddYearOfSpending_Clicked(object sender, EventArgs e)
+        {
+            Random r = new Random();
+            for (int i = 0; i < 12; i++)
+            {
+                ArchivedTrip t = new ArchivedTrip(DateTime.Today.AddMonths(i), r.Next(200, 1001));
+                await TabsViewModel.tvm.Conn.InsertAsync(t);
+            }
         }
     }
 }
