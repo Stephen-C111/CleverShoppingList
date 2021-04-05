@@ -43,10 +43,31 @@ namespace CleverShoppingList.ViewModels
         {
             decimal total = 0;
             DateTime nextMonth = date.AddMonths(1);
+
+            //need to "pretty up" the Month value if it isn't double digits, because "4" is not the same as "04".
+            string m1 = "";
+            string m2 = "";
+            if (date.Month < 10)
+            {
+                m1 = "0" + date.Month;
+            }
+            else
+            {
+                m1 = "" + date.Month;
+            }
+            if (nextMonth.Month < 10)
+            {
+                m2 = "0" + nextMonth.Month;
+            }
+            else
+            {
+                m2 = "" + nextMonth.Month;
+            }
+
             //Find all ArchivedTrips for date.Month and date.Year
             List<ArchivedTrip> TripList = await TabsViewModel.tvm.Conn.QueryAsync<ArchivedTrip>
-                ("SELECT ID, Date, Cost FROM ArchivedTrips "/*WHERE Date >= Date(" + date.Year + "-" + date.Month +"-01)" +
-                " AND Date < Date(" + nextMonth.Year + "-" + nextMonth.Month + "-01)"*/);
+                ("SELECT ID, TripDate, Cost FROM ArchivedTrips WHERE TripDate BETWEEN '" + date.Year + "-" + m1 + "-01 00:00:00' AND '" + nextMonth.Year + "-" + m2 + "-01 00:00:00'");
+
             //Add all trip costs to a single monthly cost.
             foreach (ArchivedTrip trip in TripList)
             {

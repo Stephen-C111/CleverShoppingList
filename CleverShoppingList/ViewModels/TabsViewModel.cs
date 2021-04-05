@@ -28,7 +28,7 @@ namespace CleverShoppingList.ViewModels
             //The path to the database is created and connected to locally.
             string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
             path = System.IO.Path.Combine(path, "CleverListDB.db3");
-            conn = new SQLiteAsyncConnection(path);
+            conn = new SQLiteAsyncConnection(path, false);
 
             //Create tables if non-existant
             await Conn.RunInTransactionAsync(conn =>
