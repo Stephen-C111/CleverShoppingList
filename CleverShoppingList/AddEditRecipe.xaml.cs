@@ -126,5 +126,11 @@ namespace CleverShoppingList
             AddEditRecipeViewModel.aervm.Editing = false;
             AddEditRecipeViewModel.aervm.NotEditing = true;
         }
+
+        private void CancelAddFromList_Clicked(object sender, EventArgs e)
+        {
+            AddEditRecipeViewModel.aervm.ShowItemsList = false;
+            AddEditRecipeViewModel.aervm.NoShowItemsList = true;
+        }
     }
 }

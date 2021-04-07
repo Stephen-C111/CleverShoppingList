@@ -125,6 +125,7 @@
 			<BoxView Color="#FF3838" HeightRequest="2" Margin="80, 0" IsVisible="{Binding NoShowItemsList}"/>
 
 			<Button Text="Add from Items List" HorizontalOptions="Center" Clicked="AddFromList_Clicked" IsVisible="{Binding NoShowItemsList}"/>
+			<Button Text="Cancel" HorizontalOptions="Center" Clicked="CancelAddFromList_Clicked" IsVisible="{Binding ShowItemsList}"/>
 			<Button Text="Add Selected Items" HorizontalOptions="Center" Clicked="AddChoices_Clicked" IsVisible="{Binding ShowItemsList}"/>
 
 			<BoxView Color="#FF3838" HeightRequest="2"/>

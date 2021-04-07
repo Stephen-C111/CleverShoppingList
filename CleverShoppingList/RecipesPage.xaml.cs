@@ -25,6 +25,8 @@ namespace CleverShoppingList
         private async void Add_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushModalAsync(new AddEditRecipe(-1)); //-1 indicates a new recipe should be created.
+            RecipeViewModel.rvm.Editing = false;
+            RecipeViewModel.rvm.NotEditing = true;
         }
 
         private void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
@@ -73,6 +75,8 @@ namespace CleverShoppingList
             await TabsViewModel.tvm.Conn.UpdateAsync(RecipeViewModel.rvm.SelectedRecipe);
             //Ensure that the shopping list updates to show the new ListItems.
             await ListViewModel.lvm.UpdateList();
+            RecipeViewModel.rvm.Editing = false;
+            RecipeViewModel.rvm.NotEditing = true;
             await DisplayAlert("Recipe Added.", "Your recipe has been added to the shopping list.", "OK");
             lockAdd = false;
         }
@@ -83,6 +87,8 @@ namespace CleverShoppingList
             {
                 await TabsViewModel.tvm.Conn.DeleteAsync(RecipeViewModel.rvm.SelectedRecipe);
                 await RecipeViewModel.rvm.UpdateList();
+                RecipeViewModel.rvm.Editing = false;
+                RecipeViewModel.rvm.NotEditing = true;
             }
         }
     }
