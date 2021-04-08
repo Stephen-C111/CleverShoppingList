@@ -14,7 +14,7 @@ namespace CleverShoppingList
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AddItem : ContentPage
     {
-        
+        int picked = 0;
         public AddItem()
         {
             InitializeComponent();
@@ -68,7 +68,40 @@ namespace CleverShoppingList
         private void itemView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             Item i = itemView.SelectedItem as Item;
-            i.Selected = !i.Selected;
+           
+            if (i.Selected)
+            {
+                if (picked > 0)
+                {
+                    picked--;
+                }
+                i.Selected = !i.Selected;
+            }
+            else
+            {
+                picked++;
+                i.Selected = !i.Selected;
+            }
+            if (picked > 0)
+            {
+                AddItemsButton.IsEnabled = true;
+            }
+            else
+            {
+                AddItemsButton.IsEnabled = false;
+            }
+        }
+
+        private void ItemEntries_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (NameEntry.Text != "" && PriceEntry.Text != "")
+            {
+                CreateButton.IsEnabled = true;
+            }
+            else
+            {
+                CreateButton.IsEnabled = false;
+            }
         }
     }
 }

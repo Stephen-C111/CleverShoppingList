@@ -65,9 +65,17 @@ namespace CleverShoppingList
 
         private async void SaveNewItem_Clicked(object sender, EventArgs e)
         {
+            if (ItemEntry.Text == "" || PriceEntry.Text == "" || ItemEntry.Text == null)
+            {
+                //Catch any attempt to create a null or blank item.
+                await DisplayAlert("Empty Value(s).", "You must fill out every value before attempting to add a new item.", "OK");
+                return;
+            }
             if (await DisplayAlert("Create Item?", "You can add this new item to your shopping list at any time.", "Yes", "No")){
                 Item i = new Item(ItemViewModel.ivm.ItemName, ItemViewModel.ivm.ItemPrice);
                 await TabsViewModel.tvm.Conn.InsertAsync(i);
+                ItemEntry.Text = "";
+                PriceEntry.Text = "0";
                 ItemViewModel.ivm.Adding = false;
                 ItemViewModel.ivm.NotAdding = true;
                 ItemViewModel.ivm.UpdateItemList();
@@ -79,6 +87,38 @@ namespace CleverShoppingList
         {
             ItemViewModel.ivm.Adding = false;
             ItemViewModel.ivm.NotAdding = true;
+        }
+
+        private void ItemEntry_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (ItemEntry.Text != "" && PriceEntry.Text != "" && ItemEntry.Text != null)
+            {
+                SaveNewItemButton.IsEnabled = true;
+            }
+            else
+            {
+                SaveNewItemButton.IsEnabled = false;
+            }
+        }
+
+        private void EditNameEntry_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //Due to the nature of binding, it's difficult save the previous state of an item. Thus, if a user elects to delete an item's name or price, it will default out here.
+            if (EditNameEntry.Text == "" || EditNameEntry.Text == null)
+            {
+                Dispatcher.BeginInvokeOnMainThread(() =>
+                {
+                    EditNameEntry.Text = "Unnamed Item";
+                    EditNameEntry.Focus();
+                    EditNameEntry.CursorPosition = 0;
+                    EditNameEntry.SelectionLength = EditNameEntry.Text.Length;
+                });
+                
+            }
+            if (EditPriceEntry.Text == "")
+            {
+                EditPriceEntry.Text = "0";
+            }
         }
     }
 }

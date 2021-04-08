@@ -14,6 +14,7 @@ namespace CleverShoppingList
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AddEditRecipe : ContentPage
     {
+        int picked = 0;
         public AddEditRecipe(int id, bool editing = false)
         {
             InitializeComponent();
@@ -52,7 +53,9 @@ namespace CleverShoppingList
                 //Update the visuals for item list
                 ItemViewModel.ivm.UpdateItemList();
                 await AddEditRecipeViewModel.aervm.GetIngredients(AddEditRecipeViewModel.aervm.CurrentRecipe.ID);
-                
+
+                ItemNameEntry.Text = "";
+                PriceEntry.Text = "0";
             }
         }
 
@@ -94,14 +97,42 @@ namespace CleverShoppingList
                 x.Selected = false;
             }
             await AddEditRecipeViewModel.aervm.GetIngredients(AddEditRecipeViewModel.aervm.CurrentRecipe.ID);
+            AddChoicesButton.IsEnabled = false;
+            picked = 0;
             AddEditRecipeViewModel.aervm.ShowItemsList = false;
             AddEditRecipeViewModel.aervm.NoShowItemsList = true;
         }
 
         private void itemView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
+            
             Item i = itemView.SelectedItem as Item;
-            i.Selected = !i.Selected;
+            
+            //Keep track of picked items
+            if (i.Selected)
+            {
+                if (picked > 0) //Just in case, don't allow picked to go below 0.
+                {
+                    picked--;
+                }
+                i.Selected = !i.Selected;
+            }
+            else
+            {
+                picked++;
+                i.Selected = !i.Selected;
+            }
+
+            //only allow adding if > 0 items clicked.
+            if (picked == 0)
+            {
+                AddChoicesButton.IsEnabled = false;
+            }
+            else
+            {
+                AddChoicesButton.IsEnabled = true;
+            }
+            
         }
 
         private void ingredientList_ItemTapped(object sender, ItemTappedEventArgs e)
@@ -129,8 +160,28 @@ namespace CleverShoppingList
 
         private void CancelAddFromList_Clicked(object sender, EventArgs e)
         {
+            foreach (Item x in AddEditRecipeViewModel.aervm.ItemList)
+            {
+                x.Selected = false;
+                picked = 0;
+            }
+
             AddEditRecipeViewModel.aervm.ShowItemsList = false;
             AddEditRecipeViewModel.aervm.NoShowItemsList = true;
         }
+
+        private void Entry_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (PriceEntry.Text != "" && ItemNameEntry.Text != "")
+            {
+                NewItemButton.IsEnabled = true;
+            }
+            else
+            {
+                NewItemButton.IsEnabled = false;
+            }
+        }
+
+        
     }
 }
