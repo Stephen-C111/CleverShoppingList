@@ -120,5 +120,10 @@ namespace CleverShoppingList
                 EditPriceEntry.Text = "0";
             }
         }
+
+        private void Search_Clicked(object sender, EventArgs e)
+        {
+            ItemViewModel.ivm.SearchItemList(SearchEntry.Text);
+        }
     }
 }

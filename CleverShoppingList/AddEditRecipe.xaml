@@ -28,7 +28,7 @@
 			<BoxView Color="#FF3838" HeightRequest="2"/>
 
 			<Label Text="Ingredients" HorizontalOptions="Center" IsVisible="{Binding NoShowItemsList}"/>
-			<Label Text="Add Items" HorizontalOptions="Center" IsVisible="{Binding ShowItemsList}"/>
+			<Label Text="Add Items as Ingredients" HorizontalOptions="Center" IsVisible="{Binding ShowItemsList}"/>
 			<!-- ingredients list-->
 			<ListView x:Name="ingredientList" ItemTapped="ingredientList_ItemTapped" ItemsSource="{Binding Ingredients}" IsVisible="{Binding NoShowItemsList}">
 				<ListView.ItemTemplate>
@@ -62,7 +62,11 @@
 				</ListView.ItemTemplate>
 			</ListView>
 			<!-- Items List -->
-
+			<StackLayout Orientation="Horizontal" HorizontalOptions="Center" IsVisible="{Binding ShowItemsList}">
+				<Label VerticalOptions="Center" Text="Search: "/>
+				<Entry x:Name="SearchEntry" WidthRequest="200"/>
+				<Button Text="Search" Clicked="Search_Clicked"/>
+			</StackLayout>
 			<ListView x:Name="itemView" ItemTapped="itemView_ItemTapped" ItemsSource="{Binding ItemList}" HasUnevenRows="True" SelectionMode="Single" IsVisible="{Binding ShowItemsList}">
 				<ListView.ItemTemplate>
 					<DataTemplate>

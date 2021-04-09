@@ -23,11 +23,11 @@
 			<Label Text="Add a New Item." FontSize="20"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
-			<StackLayout Padding="10, 0" Orientation="Horizontal">
+			<StackLayout Padding="10, 0" Orientation="Horizontal" HorizontalOptions="Center">
 				<Label VerticalOptions="Center" Text="Name:"/>
 				<Entry x:Name="NameEntry" TextChanged="ItemEntries_TextChanged" HorizontalOptions="StartAndExpand" WidthRequest="300" Text="{Binding Name}"/>
 			</StackLayout>
-			<StackLayout Padding="10,0" Orientation="Horizontal">
+			<StackLayout Padding="10,0" Orientation="Horizontal" HorizontalOptions="Center">
 				<Label VerticalOptions="Center" Text="Price:"/>
 				<Entry x:Name="PriceEntry" TextChanged="ItemEntries_TextChanged" HorizontalOptions="StartAndExpand" WidthRequest="80" Text="{Binding Price}" Placeholder="0.00" IsTextPredictionEnabled="False" IsSpellCheckEnabled="False" Keyboard="Numeric"/>
 				<Label VerticalOptions="Center" Text="Priority:"/>
@@ -38,6 +38,11 @@
 			<BoxView HeightRequest="2" Color="#FF3838"/>
 
 			<Label Text="Select Previously Used Items." HorizontalOptions="CenterAndExpand" FontSize="20"/>
+			<StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+				<Label VerticalOptions="Center" Text="Search: "/>
+				<Entry x:Name="SearchEntry" WidthRequest="200"/>
+				<Button Text="Search" Clicked="Search_Clicked"/>
+			</StackLayout>
 			<ListView x:Name="itemView" ItemsSource="{Binding ItemList}" ItemTapped="itemView_ItemTapped" HasUnevenRows="True" SelectionMode="Single">
 				<ListView.ItemTemplate>
 					<DataTemplate>

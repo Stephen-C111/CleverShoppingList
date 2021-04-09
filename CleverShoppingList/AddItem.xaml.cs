@@ -18,7 +18,7 @@ namespace CleverShoppingList
         public AddItem()
         {
             InitializeComponent();
-            
+            AddItemViewModel.aivm.UpdateItemList();
         }
 
         private async void Create_Clicked(object sender, EventArgs e)
@@ -41,6 +41,7 @@ namespace CleverShoppingList
         {
             if (await DisplayAlert("Leave Screen?", "Your choices will not be saved.", "Yes", "No"))
             {
+                ItemViewModel.ivm.UpdateItemList();
                 await Navigation.PopModalAsync();
             }
         }
@@ -59,6 +60,7 @@ namespace CleverShoppingList
                         await TabsViewModel.tvm.Conn.InsertAsync(li);
                     }
                 }
+                ItemViewModel.ivm.UpdateItemList();
                 await ListViewModel.lvm.UpdateList();
                 
                 await Navigation.PopModalAsync();
@@ -102,6 +104,11 @@ namespace CleverShoppingList
             {
                 CreateButton.IsEnabled = false;
             }
+        }
+
+        private void Search_Clicked(object sender, EventArgs e)
+        {
+            AddItemViewModel.aivm.SearchItemList(SearchEntry.Text);
         }
     }
 }

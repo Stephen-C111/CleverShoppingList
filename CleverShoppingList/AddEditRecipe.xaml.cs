@@ -182,6 +182,9 @@ namespace CleverShoppingList
             }
         }
 
-        
+        private void Search_Clicked(object sender, EventArgs e)
+        {
+            AddEditRecipeViewModel.aervm.SearchItemList(SearchEntry.Text);
+        }
     }
 }

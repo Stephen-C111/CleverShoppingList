@@ -54,6 +54,13 @@ namespace CleverShoppingList.ViewModels
             ItemList = new ObservableCollection<Item>(list);
         }
 
+        public async void SearchItemList(string query)
+        {
+            List<Item> list = await TabsViewModel.tvm.Conn.QueryAsync<Item>("SELECT * FROM Items WHERE Name LIKE '%" + query + "%'");
+
+            ItemList = new ObservableCollection<Item>(list);
+        }
+
         public async Task GetRecipe(int id)
         {
             var query = from r in TabsViewModel.tvm.Conn.Table<Recipe>()

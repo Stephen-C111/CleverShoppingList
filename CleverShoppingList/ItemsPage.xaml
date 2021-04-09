@@ -13,7 +13,11 @@
 	
     <ContentPage.Content>
 		<StackLayout BindingContext="{StaticResource ivm}">
-			
+			<StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="0, 10">
+				<Label VerticalOptions="Center" Text="Search: "/>
+				<Entry x:Name="SearchEntry" WidthRequest="200"/>
+				<Button Text="Search" Clicked="Search_Clicked"/>
+			</StackLayout>
 			<ListView x:Name="itemView" ItemTapped="itemView_ItemTapped"  BindingContext="{StaticResource ivm}" ItemsSource="{Binding ItemList}" HasUnevenRows="True">
 				<ListView.ItemTemplate>
 					<DataTemplate>
