@@ -31,7 +31,7 @@ namespace CleverShoppingList
             reports.Title = "Reports";
 
             HelpSettingsPage help = new HelpSettingsPage();
-            help.Title = "Help";
+            help.Title = "Help/Settings";
 
             //Options page should go here with a help section.
 

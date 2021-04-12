@@ -3,16 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			  xmlns:data="clr-namespace:CleverShoppingList.ViewModels;assembly=CleverShoppingList"
              mc:Ignorable="d"
              x:Class="CleverShoppingList.HelpSettingsPage">
+
+	<ContentPage.Resources>
+		<data:HelpSettingsViewModel x:Key="hsvm"/>
+	</ContentPage.Resources>
+	
     <ContentPage.Content>
-        <StackLayout>
-			<!--help-->
-			<ScrollView VerticalOptions="StartAndExpand">
+        <StackLayout BindingContext="{StaticResource hsvm}">
+			<!--Help-->
+			<ScrollView VerticalOptions="StartAndExpand" IsVisible="{Binding Help}">
 				<StackLayout>
 					<Label HorizontalOptions="Center" Text="Overview" TextColor="Black" FontSize="24"/>
 					<Label HorizontalOptions="Center" HorizontalTextAlignment="Center" 
 				   Text="Thank you for downloading the Clever Shopping List. The purpose of the app is to act as a quality-of-life tool. If used properly, it should cut down on both human error, and effort."/>
+					
 					<BoxView Color="#FF3838" HeightRequest="2"/>
 
 					<Label HorizontalOptions="Center" Text="The Shopping List" TextColor="Black" FontSize="24"/>
@@ -20,11 +27,13 @@
 				   Text="In theory, this page could be the only page you ever use. It allows you to add new items, add previously created items, and check them off. That's not very different from just using pen and paper, but it is a little more convenient for it to be on your phone. "/>
 					<Label HorizontalOptions="Center" HorizontalTextAlignment="Center" 
 				   Text="Use the Add button to add your items to the list. Check off each item as you collect them in your cart, then use the Check-Out button when you have bought the items. If you need to edit the item's priority or price, you can tap anywhere on it except the checkbox to pull up an editing context menu."/>
+					
 					<BoxView Color="#FF3838" HeightRequest="2"/>
 
 					<Label HorizontalOptions="Center" Text="The Items Page" TextColor="Black" FontSize="24"/>
 					<Label HorizontalOptions="Center" HorizontalTextAlignment="Center" 
 				   Text="The items page is where all of your previously created items are listed. For your own convenience, it is suggested that you try not to create duplicate items. You can make new items quickly on the items page, if you aren't ready to add them to your shopping list. If you click on an item, you can edit or delete it. Deleted items will be deleted from every part of the app, so be sure that you want to delete the item in question."/>
+					
 					<BoxView Color="#FF3838" HeightRequest="2"/>
 
 					<Label HorizontalOptions="Center" Text="The Recipes Page" TextColor="Black" FontSize="24"/>
@@ -32,6 +41,7 @@
 				   Text="The recipes page contains one of the most useful functions that can't be accomplished via pen and paper. You can create recipes that hold a list of ingredients that are needed to fulfill a recipe. This obviously isn't limited to food, and you can even create custom recipes for DIY projects. The only limit really is your imagination."/>
 					<Label HorizontalOptions="Center" HorizontalTextAlignment="Center" 
 				   Text="Use the Add button to create a new recipe, insert a new name and the desired ingredients. Once you've saved a recipe, you can click on it like on any other screen to open a context menu. From this menu, you can edit, delete, or add the recipe to your shopping list."/>
+					
 					<BoxView Color="#FF3838" HeightRequest="2"/>
 
 					<Label HorizontalOptions="Center" Text="The Reports Page" TextColor="Black" FontSize="24"/>
@@ -43,9 +53,62 @@
 				   Text="The second report will show your spending by month. This is useful for budgeting purposes."/>
 				</StackLayout>
 			</ScrollView>
+			<!--Settings-->
+			<ScrollView VerticalOptions="StartAndExpand" IsVisible="{Binding Settings}">
+				<StackLayout>
+					<!-- Password Settings -->
+					<Label HorizontalOptions="Center" TextColor="Black" FontSize="18" Padding="10">
+						<Label.FormattedText>
+							<FormattedString>
+								<Span Text="Password Set: "/>
+								<Span Text="Unknown"/>
+							</FormattedString>
+						</Label.FormattedText>
+					</Label>
+					<Button Text="Edit Password" Clicked="EditPass_Clicked" HorizontalOptions="Center" IsVisible="{Binding NoEditPass}"/>
+					
+					<!-- Request Password if Exists -->
+					<StackLayout Orientation="Horizontal" HorizontalOptions="Center" IsVisible="{Binding RequestPass}">
+						<Label Text="Enter Password" VerticalOptions="Center"/>
+						<Entry x:Name="RequestPassEntry" WidthRequest="150" IsPassword="True"/>
+					</StackLayout>
+					<Button Text="Confirm" HorizontalOptions="Center" Clicked="ConfirmPass_Clicked" IsVisible="{Binding RequestPass}"/>
+
+					<!-- Enter New Password if Allowed -->
+					<StackLayout Orientation="Horizontal" HorizontalOptions="Center" IsVisible="{Binding NewPass}">
+						<Label Text="New Password" VerticalOptions="Center"/>
+						<Entry x:Name="NewPassEntry" WidthRequest="150" IsPassword="True"/>
+					</StackLayout>
+					<StackLayout Orientation="Horizontal" HorizontalOptions="Center" IsVisible="{Binding NewPass}">
+						<Label Text="Confirm Password" VerticalOptions="Center"/>
+						<Entry x:Name="ConfirmNewPassEntry" WidthRequest="150" IsPassword="True"/>
+					</StackLayout>
+					<Button Text="Disable Password" HorizontalOptions="Center" Clicked="DisablePass_Clicked" IsVisible="{Binding NewPass}"/>
+					<Button Text="Save Password" HorizontalOptions="Center" Clicked="ConfirmNewPass_Clicked" IsVisible="{Binding NewPass}"/>
+					
+
+					<BoxView Color="#FF3838" HeightRequest="2"/>
+
+					<StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+						<Label Text="Preferred Symbol: " VerticalOptions="Center"/>
+						<Entry Placeholder="$"/>
+					</StackLayout>
+					<StackLayout Orientation="Horizontal" HorizontalOptions="Center" >
+						<Label Text="Sales Tax %: " VerticalOptions="Center"/>
+						<Entry Placeholder="8.25"/>
+					</StackLayout>
+					<Button Text="Save Settings" HorizontalOptions="Center"/>
+					
+					<BoxView Color="#FF3838" HeightRequest="2"/>
+					
+					
+				</StackLayout>
+			</ScrollView>
+			
 			
 			<BoxView Color="#FF3838" HeightRequest="2"/>
-			<Button Text="Settings" HorizontalOptions="Center"/>
+			<Button Text="Settings" Clicked="Settings_Clicked" IsVisible="{Binding Help}" HorizontalOptions="Center"/>
+			<Button Text="Help" Clicked="Help_Clicked" IsVisible="{Binding Settings}" HorizontalOptions="Center"/>
 			<BoxView Color="#FF3838" HeightRequest="2"/>
 		</StackLayout>
     </ContentPage.Content>
