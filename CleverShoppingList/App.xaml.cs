@@ -10,7 +10,7 @@ namespace CleverShoppingList
         {
             InitializeComponent();
 
-            MainPage = new TabsPage();
+            MainPage = new GreetingPage();
             
         }
 

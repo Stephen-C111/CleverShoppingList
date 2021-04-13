@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+			 xmlns:data="clr-namespace:CleverShoppingList.ViewModels;assembly=CleverShoppingList"
+             x:Class="CleverShoppingList.GreetingPage">
+
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<Style TargetType="Button">
+			<Setter Property="TextColor" Value="White"/>
+			<Setter Property="BackgroundColor" Value="#FF3838"/>
+			</Style>
+			<data:GreetingViewModel x:Key="gvm"/>
+		</ResourceDictionary>
+	</ContentPage.Resources>
+	
+    <ContentPage.Content>
+        <StackLayout BindingContext="{StaticResource gvm}">
+            <Label Text="Clever Shopping List"
+                VerticalOptions="Start" FontSize="24" TextColor="Black" Padding="20"
+                HorizontalOptions="CenterAndExpand" />
+			<BoxView Color="#FF3838" HeightRequest="2"/>
+			<StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="Center">
+				<Label Text="Welcome back." HorizontalOptions="Center" FontSize="18" TextColor="Black"/>
+				<!--no password-->
+				<Label Text="Please click the button below to load your data." IsVisible="{Binding NoPassword}"/>
+				<!--password-->
+				<Label Text="Please enter your password before continuing." HorizontalOptions="Center" IsVisible="{Binding PasswordExists}"/>
+				<StackLayout Orientation="Horizontal" IsVisible="{Binding PasswordExists}">
+					<Label Text="Password: " VerticalOptions="Center"/>
+					<Entry x:Name="PassEntry" IsPassword="True" WidthRequest="180"/>
+				</StackLayout>
+				<Button Text="Continue" HorizontalOptions="Center" Clicked="Continue_Clicked"/>
+			</StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
