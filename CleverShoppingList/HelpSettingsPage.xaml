@@ -61,7 +61,7 @@
 						<Label.FormattedText>
 							<FormattedString>
 								<Span Text="Password Set: "/>
-								<Span Text="Unknown"/>
+								<Span x:Name="PasswordSpan" Text="Unknown"/>
 							</FormattedString>
 						</Label.FormattedText>
 					</Label>

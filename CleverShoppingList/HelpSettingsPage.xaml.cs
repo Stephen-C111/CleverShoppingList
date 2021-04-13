@@ -18,6 +18,13 @@ namespace CleverShoppingList
         public HelpSettingsPage()
         {
             InitializeComponent();
+
+            CheckForPass();
+        }
+
+        async void CheckForPass()
+        {
+            PasswordSpan.Text = await SecureStorage.GetAsync("app_pass") == "" ? "No" : "Yes";
         }
 
         private void Settings_Clicked(object sender, EventArgs e)
@@ -79,12 +86,14 @@ namespace CleverShoppingList
                         HelpSettingsViewModel.hsvm.NoEditPass = true;
                         HelpSettingsViewModel.hsvm.RequestPass = false;
                         await DisplayAlert("Password Confirmed.", "You will be prompted for this password at app launch from now on.", "OK");
+                        CheckForPass();
                     }
                     catch
                     {
                         await DisplayAlert("Error!", "Something went wrong adding your password. Try to use normal alpha-numerical symbols. (a-z A-Z 0-9)", "OK");
                         //To ensure the password isn't corrupted somehow, which would lock the user out permanently:
                         await SecureStorage.SetAsync("app_pass", "");
+                        CheckForPass();
                     }
                     
                 }
@@ -105,6 +114,7 @@ namespace CleverShoppingList
                 HelpSettingsViewModel.hsvm.NewPass = false;
                 HelpSettingsViewModel.hsvm.NoEditPass = true;
                 HelpSettingsViewModel.hsvm.RequestPass = false;
+                CheckForPass();
             }
         }
     }
