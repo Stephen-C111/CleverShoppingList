@@ -43,6 +43,7 @@ namespace CleverShoppingList
                 ArchivedTrip t = new ArchivedTrip(DateTime.Today.AddMonths(i), r.Next(200, 1001));
                 await TabsViewModel.tvm.Conn.InsertAsync(t);
             }
+            ReportsViewModel.rpvm.GetSpendingForMainDisplay();
         }
     }
 }

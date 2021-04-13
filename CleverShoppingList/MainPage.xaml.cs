@@ -90,6 +90,7 @@ namespace CleverShoppingList
 
                 await ListViewModel.lvm.UpdateList();
                 ItemViewModel.ivm.UpdateItemList();
+                ReportsViewModel.rpvm.GetSpendingForMainDisplay(); //Update the label for "Current spending this month"
             }
             
         }
@@ -100,7 +101,7 @@ namespace CleverShoppingList
             ListViewModel.lvm.Editing = false;
             ListViewModel.lvm.NotEditing = true;
             
-            //await ListViewModel.lvm.UpdateList();
+            await ListViewModel.lvm.UpdateList();
         }
 
         private void Stepper_PropertyChanged(object sender, PropertyChangedEventArgs e)

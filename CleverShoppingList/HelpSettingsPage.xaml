@@ -88,18 +88,21 @@
 					
 
 					<BoxView Color="#FF3838" HeightRequest="2"/>
+					<!-- Settings not required for evaluation build. -->
+					<StackLayout IsVisible="False">
+						<StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+							<Label Text="Preferred Symbol: " VerticalOptions="Center"/>
+							<Entry Placeholder="$"/>
+						</StackLayout>
+						<StackLayout Orientation="Horizontal" HorizontalOptions="Center" >
+							<Label Text="Sales Tax %: " VerticalOptions="Center"/>
+							<Entry Placeholder="8.25"/>
+						</StackLayout>
+						<Button Text="Save Settings" HorizontalOptions="Center"/>
 
-					<StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-						<Label Text="Preferred Symbol: " VerticalOptions="Center"/>
-						<Entry Placeholder="$"/>
+						<BoxView Color="#FF3838" HeightRequest="2"/>
 					</StackLayout>
-					<StackLayout Orientation="Horizontal" HorizontalOptions="Center" >
-						<Label Text="Sales Tax %: " VerticalOptions="Center"/>
-						<Entry Placeholder="8.25"/>
-					</StackLayout>
-					<Button Text="Save Settings" HorizontalOptions="Center"/>
 					
-					<BoxView Color="#FF3838" HeightRequest="2"/>
 					
 					
 				</StackLayout>

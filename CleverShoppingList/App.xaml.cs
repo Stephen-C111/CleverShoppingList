@@ -6,6 +6,8 @@ namespace CleverShoppingList
 {
     public partial class App : Application
     {
+        public static char preferredSymbol = '$';
+        public static float salesTax = 8.25f;
         public App()
         {
             InitializeComponent();
