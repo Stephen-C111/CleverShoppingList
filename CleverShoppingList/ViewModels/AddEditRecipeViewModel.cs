@@ -71,10 +71,13 @@ namespace CleverShoppingList.ViewModels
 
         public async Task GetIngredients(int id)
         {
-            var query = from i in TabsViewModel.tvm.Conn.Table<ListItem>()
-                        where i.OwnerID == id
-                        select i;
-            Ingredients = new ObservableCollection<ListItem>(await query.ToListAsync());
+            //var query = from i in TabsViewModel.tvm.Conn.Table<ListItem>()
+            //            where i.OwnerID == id
+            //            select i;
+
+            List<ListItem> list = await TabsViewModel.tvm.Conn.QueryAsync<ListItem>("SELECT ID, Name, Price, ForeignID, OwnerID, Amount, RecipeName, HasRecipe FROM ListItems WHERE OwnerID = " + id + " ORDER BY Name");
+
+            Ingredients = new ObservableCollection<ListItem>(list);
         }
 
         public async Task SaveRecipe()

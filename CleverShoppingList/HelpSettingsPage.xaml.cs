@@ -24,7 +24,7 @@ namespace CleverShoppingList
 
         async void CheckForPass()
         {
-            PasswordSpan.Text = await SecureStorage.GetAsync("app_pass") == "" ? "No" : "Yes";
+            PasswordSpan.Text = await SecureStorage.GetAsync("app_pass") == "" || await SecureStorage.GetAsync("app_pass") == null ? "No" : "Yes";
         }
 
         private void Settings_Clicked(object sender, EventArgs e)

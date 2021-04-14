@@ -78,6 +78,7 @@ namespace CleverShoppingList
         {
             AddEditRecipeViewModel.aervm.ShowItemsList = true;
             AddEditRecipeViewModel.aervm.NoShowItemsList = false;
+            AddEditRecipeViewModel.aervm.Editing = false;
         }
 
         private async void AddChoices_Clicked(object sender, EventArgs e)
@@ -115,12 +116,12 @@ namespace CleverShoppingList
                 {
                     picked--;
                 }
-                i.Selected = !i.Selected;
+                i.Selected = false;
             }
             else
             {
                 picked++;
-                i.Selected = !i.Selected;
+                i.Selected = true;
             }
 
             //only allow adding if > 0 items clicked.
@@ -148,6 +149,7 @@ namespace CleverShoppingList
             {
                 await TabsViewModel.tvm.Conn.DeleteAsync(AddEditRecipeViewModel.aervm.SelectedIngredient);
                 await AddEditRecipeViewModel.aervm.GetIngredients(AddEditRecipeViewModel.aervm.CurrentRecipe.ID);
+                AddEditRecipeViewModel.aervm.Editing = false;
             }
         }
 
