@@ -103,7 +103,7 @@
 
 
 		<StackLayout Padding="5" Orientation="Horizontal" HorizontalOptions="CenterAndExpand" BindingContext="{StaticResource lvm}" IsVisible="{Binding NotEditing}">
-			<Button Text="DebugAdd" Clicked="DebugAdd_Clicked"/>
+			<!--Button Text="DebugAdd" Clicked="DebugAdd_Clicked"/-->
 			<Button Text="Add" Clicked="Add_Clicked"></Button>
 			<Button Text="Check-Out" Clicked="CheckOut_Clicked"></Button>
 		</StackLayout>

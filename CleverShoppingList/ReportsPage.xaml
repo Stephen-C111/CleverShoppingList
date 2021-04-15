@@ -104,7 +104,7 @@
 				<StackLayout Orientation="Vertical" Padding="5" HorizontalOptions="Center">
 					<Button Text="View Your Most Expensive Items" Clicked="ExpensiveItems_Clicked"  HorizontalOptions="Center"/>
 					<Button Text="View Your Monthly Spending" Clicked="Monthly_Spending_Clicked" HorizontalOptions="Center"/>
-					<Button Text="DEBUG FILL YEAR WITH SPENDING" Clicked="DebugAddYearOfSpending_Clicked" HorizontalOptions="Center"/>
+					<!--Button Text="DEBUG FILL YEAR WITH SPENDING" Clicked="DebugAddYearOfSpending_Clicked" HorizontalOptions="Center"/-->
 				</StackLayout>
 				<BoxView Color="#FF3838" HeightRequest="2"/>
 			</StackLayout>
